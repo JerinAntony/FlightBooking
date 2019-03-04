@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.chainsys.flightbooking.dao.AirlinesDAO;
-import com.chainsys.flightbooking.model.Airlines;
+import com.chainsys.flightbooking.dao.AirlinesFlightDAO;
+import com.chainsys.flightbooking.model.AirlinesFlight;
 
 @WebServlet("/GetAirlinesSeatsServlet")
 public class GetAirlinesSeatsServlet extends HttpServlet {
@@ -17,10 +17,12 @@ public class GetAirlinesSeatsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		int airlineid = Integer.parseInt(request.getParameter("airLines"));
-		AirlinesDAO airlinedao = new AirlinesDAO();
+		String flightclass = request.getParameter("flightClass");
+		AirlinesFlightDAO airlinedao = new AirlinesFlightDAO();
 		try {
 
-			Airlines airlines = airlinedao.findById(airlineid);
+			AirlinesFlight airlines = airlinedao.findByIdClass(airlineid,
+					flightclass);
 			// Adult and Child Seats Count append in string and pass to
 			// app.ajax.js
 			int[] adultcount = new int[airlines.getAdultSeats()];

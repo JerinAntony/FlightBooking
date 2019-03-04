@@ -14,10 +14,10 @@ import com.chainsys.flightbooking.dao.AirlinesFlightDAO;
 import com.chainsys.flightbooking.model.AirlinesFlight;
 
 /**
- * Servlet implementation class BookFlightServlet
+ * Servlet implementation class AddAirlinesServlet
  */
-@WebServlet("/BookFlightServlet")
-public class BookFlightServlet extends HttpServlet {
+@WebServlet("/AddAirlinesFlightServlet")
+public class AddAirlinesFlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -26,21 +26,32 @@ public class BookFlightServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		AirlinesFlight airlines = new AirlinesFlight();
+		airlines.setFlightName(request.getParameter("flightname"));
+		airlines.setFlightNo(request.getParameter("flightno"));
+		airlines.setAdultSeats(Integer.parseInt(request
+				.getParameter("adultseats")));
+		airlines.setAdultPrice(Integer.parseInt(request
+				.getParameter("adultprice")));
+		airlines.setChildSeats(Integer.parseInt(request
+				.getParameter("childseats")));
+		airlines.setChildPrice(Integer.parseInt(request
+				.getParameter("childprice")));
+		airlines.setStatus(request.getParameter("status"));
+		airlines.setFlightClass(request.getParameter("flightclass"));
 		AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
 		try {
+			airlinesDAO.addAirlines(airlines);
 			ArrayList<AirlinesFlight> airlinesList = new ArrayList<>();
-			AirlinesFlight airlines = new AirlinesFlight();
-			airlines.setFlightName("Select");
-			airlinesList.add(airlines);
-			airlinesList.addAll(airlinesDAO.findAll());
-			System.out.println(airlinesList.size());
+			airlinesList.addAll(airlinesDAO.findAllAirlines());
 			request.setAttribute("AIRLINES", airlinesList);
 			RequestDispatcher rd = request
-					.getRequestDispatcher("booking_airlines.jsp");
+					.getRequestDispatcher("view_airlines.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }

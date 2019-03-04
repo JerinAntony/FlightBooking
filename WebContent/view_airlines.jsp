@@ -21,7 +21,7 @@ form {
 <body>
 	<div align="center">
 		<form method="post">
-			<h3 style="color: white">Flights Availability</h3>
+			<h3 style="color: white">Airlines Available</h3>
 			<table
 				style="font-family: times new roman; border-collapse: collapse; color: white">
 				<thead>
@@ -32,6 +32,9 @@ form {
 						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Flight
 							No</th>
+						<th
+							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Class
+						</th>
 						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Adult
 							Seats</th>
@@ -55,6 +58,8 @@ form {
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${airlines.flightName}</td>
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${airlines.flightNo}</td>
+							<td
+								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${airlines.flightClass}</td>
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${airlines.adultSeats}</td>
 							<td

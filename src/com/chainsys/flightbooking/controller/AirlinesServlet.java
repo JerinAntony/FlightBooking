@@ -14,10 +14,10 @@ import com.chainsys.flightbooking.dao.AirlinesDAO;
 import com.chainsys.flightbooking.model.Airlines;
 
 /**
- * Servlet implementation class AddAirlinesServlet
+ * Servlet implementation class AirlinesServlet
  */
-@WebServlet("/AddAirlinesServlet")
-public class AddAirlinesServlet extends HttpServlet {
+@WebServlet("/AirlinesServlet")
+public class AirlinesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -26,12 +26,8 @@ public class AddAirlinesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Airlines airlines = new Airlines();
-		airlines.setAirlinesName(request.getParameter("airlines"));
-		System.out.println(airlines.getAirlinesName());
 		AirlinesDAO airlinesDAO = new AirlinesDAO();
 		try {
-			airlinesDAO.addAirline(airlines);
 			ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
 			request.setAttribute("AIRLINES", airlinesList);
 			RequestDispatcher rd = request.getRequestDispatcher("airlines.jsp");

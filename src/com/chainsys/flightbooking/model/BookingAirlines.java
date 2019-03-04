@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class BookingAirlines {
 
 	private int id;
-	private Airlines airlinesId;
+	private AirlinesFlight airlinesId;
 	private int adultSeats;
 	private int childSeats;
 	private String coPassangersname;
@@ -21,11 +21,11 @@ public class BookingAirlines {
 		this.id = id;
 	}
 
-	public Airlines getAirlinesId() {
+	public AirlinesFlight getAirlinesId() {
 		return airlinesId;
 	}
 
-	public void setAirlinesId(Airlines airlinesId) {
+	public void setAirlinesId(AirlinesFlight airlinesId) {
 		this.airlinesId = airlinesId;
 	}
 

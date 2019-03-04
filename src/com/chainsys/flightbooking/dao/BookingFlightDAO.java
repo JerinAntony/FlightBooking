@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.chainsys.flightbooking.model.Airlines;
+import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.model.BookingAirlines;
 import com.chainsys.flightbooking.model.Passangers;
 import com.chainsys.flightbooking.util.ConnectionUtil;
@@ -24,8 +24,8 @@ public class BookingFlightDAO {
 		preparedStatement.setLong(3, bookairlines.getChildSeats());
 		preparedStatement.setString(4, bookairlines.getCoPassangersname());
 		// Calculating Filght Price Amount
-		AirlinesDAO airlinesDAO = new AirlinesDAO();
-		Airlines airlines = airlinesDAO.findById(bookairlines.getAirlinesId()
+		AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
+		AirlinesFlight airlines = airlinesDAO.findById(bookairlines.getAirlinesId()
 				.getId());
 		if (airlines != null) {
 			int adultamount = bookairlines.getAdultSeats()
@@ -55,10 +55,10 @@ public class BookingFlightDAO {
 		bookinghistoryLists = new ArrayList<>();
 		while (resultset.next()) {
 			BookingAirlines booking = new BookingAirlines();
-			Airlines airlines;
+			AirlinesFlight airlines;
 			booking.setId(resultset.getInt("id"));
 
-			AirlinesDAO airlinesdao = new AirlinesDAO();
+			AirlinesFlightDAO airlinesdao = new AirlinesFlightDAO();
 			airlines = airlinesdao.findById(resultset.getInt("airlines_id"));
 			booking.setAirlinesId(airlines);
 

@@ -73,46 +73,68 @@ input[type=number] {
 				<td>
 					<div align="center" style="width: 900px">
 
-						<form method="post" action="AddAirlinesServlet">
+						<form method="post" action="AddAirlinesFlightServlet">
 
 							<h2 style="color: white;">Add Airlines Information</h2>
 							<table>
 								<tr>
 									<td style="color: white;">Airlines Name :</td>
-									<td><input type="text" name="flightname"></td>
+									<td><select name="flightname">
+											<option value="">Select Airlines</option>
+											<option value="Emirated">Emirates</option>
+											<option value="Fly Dubai">Fly Dubai</option>
+											<option value="Indigo">Indigo</option>
+											<option value="Air India">Air India</option>
+									</select></td>
 									<td width="6px"></td>
 									<td style="color: white;">Flight No :</td>
 									<td><input type="text" name="flightno"></td>
 								</tr>
+
 								<tr>
+									<td style="color: white;">Class</td>
+									<td style="color: white;"><input type="radio"
+										name="flightclass" value="Economy" checked>Economy <input
+										type="radio" name="flightclass" value="Busniness">Busniness<input
+										type="radio" name="flightclass" value="First">First</td>
 									<td></td>
-								</tr>
-								<tr>
-									<td style="color: white;">Adult seats :</td>
+									<td style="color: white;">Adult seats :<br />(age 12+)
+									</td>
 									<td><input type="number" name="adultseats"></td>
+								</tr>
+
+								<tr>
 									<td></td>
-									<td style="color: white;">Price (1 seat) :</td>
+								</tr>
+								<tr>
+									<td style="color: white;">Price (1 seat) :<br />(Adult)
+									</td>
 									<td><input type="number" name="adultprice"></td>
-								</tr>
-								<tr>
 									<td></td>
-								</tr>
-								<tr>
-									<td style="color: white;">Child seats :</td>
+									<td style="color: white;">Children seats :<br />(age
+										2-11)
+									</td>
 									<td><input type="number" name="childseats"></td>
+								</tr>
+								<tr>
 									<td></td>
-									<td style="color: white;">Price (1 seat) :</td>
+								</tr>
+								<tr>
+									<td style="color: white;">Price (1 seat) :<br />(Children)
+									</td>
 									<td><input type="number" name="childprice"></td>
-								</tr>
-								<tr>
 									<td></td>
-								</tr>
-								<tr>
 									<td style="color: white;">Status :</td>
 									<td style="color: white;"><input type="radio"
 										name="status" value="Y" checked>Available <input
 										type="radio" name="status" value="N" checked>Not
 										Available</td>
+								</tr>
+								<tr>
+									<td></td>
+								</tr>
+								<tr>
+
 								</tr>
 
 								<tr>
@@ -141,10 +163,13 @@ input[type=number] {
 		<br /> <br />
 		<table>
 			<tr>
+				<td><form method="post" action="AirlinesServlet">
+						<button type="submit" class="button button1">Add Airlines</button>
+					</form></td>
 				<td>
 					<form method="post" action="CheckFlightAvailablityServlet">
-						<button type="submit" class="button button1">Check Flight
-							Availability</button>
+						<button type="submit" class="button button1">Flights
+							Available</button>
 					</form>
 				</td>
 				<td>
@@ -154,7 +179,8 @@ input[type=number] {
 				</td>
 				<td>
 					<form method="post" action="BookingSummaryServlet">
-						<button type="submit" class="button button1">Book Summary</button>
+						<button type="submit" class="button button1">Booking
+							Summary</button>
 					</form>
 				</td>
 				<td>

@@ -3,7 +3,7 @@
 //blur
 $(document).ready(
 		function() {
-			$('#airLines').change(
+			$('input[name=flightclass]').click(
 
 					function() {
 						$('#adultseats').empty();
@@ -11,7 +11,8 @@ $(document).ready(
 						$.ajax({
 							url : 'GetAirlinesSeatsServlet',
 							data : {
-								airLines : $('#airLines').val()
+								airLines : $('#airLines').val(),
+								flightClass:$('input[name=flightclass]:checked').val()
 							},
 							success : function(responseText) {
 								var countlist = "";

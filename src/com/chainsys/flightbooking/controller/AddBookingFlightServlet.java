@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.chainsys.flightbooking.dao.BookingFlightDAO;
-import com.chainsys.flightbooking.model.Airlines;
+import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.model.BookingAirlines;
 import com.chainsys.flightbooking.model.Passangers;
 import com.chainsys.flightbooking.validator.FlightBookingValidator;
@@ -34,7 +34,7 @@ public class AddBookingFlightServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Passangers passanger = (Passangers) session.getAttribute("PASSANGER");
 		BookingAirlines booking = new BookingAirlines();
-		Airlines airlines = new Airlines();
+		AirlinesFlight airlines = new AirlinesFlight();
 		airlines.setId(Integer.parseInt(request.getParameter("airlines")));
 		booking.setAirlinesId(airlines);
 		booking.setAdultSeats(Integer.parseInt(request
