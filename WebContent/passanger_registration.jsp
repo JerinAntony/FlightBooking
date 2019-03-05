@@ -62,6 +62,7 @@ input[type=text] {
 	border-radius: 4px;
 	box-sizing: border-box;
 }
+
 input[type=number] {
 	width: 100%;
 	padding: 12px 20px;
@@ -71,6 +72,7 @@ input[type=number] {
 	border-radius: 4px;
 	box-sizing: border-box;
 }
+
 input[type=email] {
 	width: 100%;
 	padding: 12px 20px;
@@ -80,6 +82,7 @@ input[type=email] {
 	border-radius: 4px;
 	box-sizing: border-box;
 }
+
 input[type=password] {
 	width: 100%;
 	padding: 12px 20px;
@@ -89,6 +92,7 @@ input[type=password] {
 	border-radius: 4px;
 	box-sizing: border-box;
 }
+
 input[type=date] {
 	width: 100%;
 	padding: 12px 20px;
@@ -120,7 +124,7 @@ input[type=date] {
 				<tr align="left">
 					<td style="color: white">Name :</td>
 					<td><input type="text" name="name" required></td>
-					
+
 				</tr>
 
 				<tr align="left">
@@ -130,7 +134,8 @@ input[type=date] {
 
 				<tr align="left">
 					<td style="color: white">Phone no :</td>
-					<td><input type="number" pattern="[7-9]{1}[0-9]{9}"
+					<td><input type="number"
+						pattern="([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})"
 						name="phone" required></td>
 				</tr>
 

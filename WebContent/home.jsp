@@ -75,16 +75,14 @@ input[type=number] {
 
 						<form method="post" action="AddAirlinesFlightServlet">
 
-							<h2 style="color: white;">Add Airlines Information</h2>
+							<h2 style="color: white;">Add Flight Details</h2>
 							<table>
 								<tr>
 									<td style="color: white;">Airlines Name :</td>
-									<td><select name="flightname">
-											<option value="">Select Airlines</option>
-											<option value="Emirated">Emirates</option>
-											<option value="Fly Dubai">Fly Dubai</option>
-											<option value="Indigo">Indigo</option>
-											<option value="Air India">Air India</option>
+									<td><select name="airlines">
+											<c:forEach var="airlines" items="${AIRLINE}">
+												<option value="${airlines.id}">${airlines.airlinesName}</option>
+											</c:forEach>
 									</select></td>
 									<td width="6px"></td>
 									<td style="color: white;">Flight No :</td>

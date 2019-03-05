@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.flightbooking.dao.AirlinesFlightDAO;
+import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.AirlinesFlight;
 
 /**
@@ -27,7 +28,9 @@ public class AddAirlinesFlightServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		AirlinesFlight airlines = new AirlinesFlight();
-		airlines.setFlightName(request.getParameter("flightname"));
+		Airlines airline = new Airlines();
+		airline.setId(Integer.parseInt(request.getParameter("airlines")));
+		airlines.setFlightName(airline);
 		airlines.setFlightNo(request.getParameter("flightno"));
 		airlines.setAdultSeats(Integer.parseInt(request
 				.getParameter("adultseats")));

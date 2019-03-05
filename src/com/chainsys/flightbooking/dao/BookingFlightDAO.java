@@ -17,12 +17,13 @@ public class BookingFlightDAO {
 	public void addBookingFlight(BookingAirlines bookairlines)
 			throws SQLException {
 		Connection connection = ConnectionUtil.getConnection();
-		String url = "INSERT INTO bookingairlines(id,airlines_id,adult_seats,child_seats,co_passangersname,price,booking_date,passengers_id) VALUES(seq_bookingairlines_id.NEXTVAL,?,?,?,?,?,?,?)";
+		String url = "INSERT INTO bookingairlines(id,airlines_id,adult_seats,child_seats,infant,co_passangersname,price,booking_date,passengers_id) VALUES(seq_bookingairlines_id.NEXTVAL,?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedStatement = connection.prepareStatement(url);
 		preparedStatement.setInt(1, bookairlines.getAirlinesId().getId());
 		preparedStatement.setLong(2, bookairlines.getAdultSeats());
 		preparedStatement.setLong(3, bookairlines.getChildSeats());
-		preparedStatement.setString(4, bookairlines.getCoPassangersname());
+		preparedStatement.setInt(4, bookairlines.getInfant());
+		preparedStatement.setString(5, bookairlines.getCoPassangersname());
 		// Calculating Filght Price Amount
 		AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
 		AirlinesFlight airlines = airlinesDAO.findById(bookairlines.getAirlinesId()
@@ -37,10 +38,10 @@ public class BookingFlightDAO {
 		}
 		// Update Booking seats in Airlines
 		airlinesDAO.updateAirlinesSeats(bookairlines);
-		preparedStatement.setDouble(5, bookairlines.getPrice());
-		preparedStatement.setDate(6,
+		preparedStatement.setDouble(6, bookairlines.getPrice());
+		preparedStatement.setDate(7,
 				Date.valueOf(bookairlines.getBookingDate()));
-		preparedStatement.setInt(7, bookairlines.getPassenger_id().getId());
+		preparedStatement.setInt(8, bookairlines.getPassenger_id().getId());
 		int row = preparedStatement.executeUpdate();
 		System.out.println(row);
 	}
@@ -49,7 +50,7 @@ public class BookingFlightDAO {
 		ArrayList<BookingAirlines> bookinghistoryLists = new ArrayList<>();
 
 		Connection connection = ConnectionUtil.getConnection();
-		String sql = "SELECT id,airlines_id,adult_seats,child_seats,co_passangersname,price,booking_date,passengers_id FROM bookingairlines ORDER BY id";
+		String sql = "SELECT id,airlines_id,adult_seats,child_seats,infant,co_passangersname,price,booking_date,passengers_id FROM bookingairlines ORDER BY id";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultset = preparedStatement.executeQuery();
 		bookinghistoryLists = new ArrayList<>();
@@ -66,6 +67,8 @@ public class BookingFlightDAO {
 					.getString("adult_seats")));
 			booking.setChildSeats(Integer.parseInt(resultset
 					.getString("child_seats")));
+			booking.setChildSeats(Integer.parseInt(resultset
+					.getString("infant")));
 			booking.setCoPassangersname(resultset
 					.getString("co_passangersname"));
 			booking.setPrice(resultset.getInt("price"));

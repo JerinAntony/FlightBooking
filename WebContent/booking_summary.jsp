@@ -17,6 +17,7 @@ body {
 form {
 	display: inline-block;
 }
+
 .button {
 	background-color: #4CAF50; /* Green */
 	border: none;
@@ -42,7 +43,6 @@ form {
 	background-color: #4CAF50;
 	color: white;
 }
-
 </style>
 <body>
 	<div align="center">
@@ -63,6 +63,9 @@ form {
 						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Child
 							Seats</th>
+						<th
+							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Infant
+						</th>
 
 						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Co-Passangers
@@ -87,6 +90,9 @@ form {
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.adultSeats}</td>
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.childSeats}</td>
+							<td
+								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.infant}</td>
+
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.coPassangersname}</td>
 							<td

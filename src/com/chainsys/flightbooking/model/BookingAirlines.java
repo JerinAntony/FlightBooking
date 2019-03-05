@@ -8,6 +8,7 @@ public class BookingAirlines {
 	private AirlinesFlight airlinesId;
 	private int adultSeats;
 	private int childSeats;
+	private int infant;
 	private String coPassangersname;
 	private int price;
 	private LocalDate bookingDate;
@@ -43,6 +44,16 @@ public class BookingAirlines {
 
 	public void setChildSeats(int childSeats) {
 		this.childSeats = childSeats;
+	}
+
+	
+	
+	public int getInfant() {
+		return infant;
+	}
+
+	public void setInfant(int infant) {
+		this.infant = infant;
 	}
 
 	public String getCoPassangersname() {

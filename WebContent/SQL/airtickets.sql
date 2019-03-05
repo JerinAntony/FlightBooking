@@ -20,6 +20,10 @@ adult_seats int,child_seats int,adult_price int,child_price int,status char);
 
 alter table airlines ADD flight_class varchar(30);
 
+alter table AIRLINES_FLIGHT MODIFY flight_name int;
+
+alter table AIRLINES_FLIGHT ADD CONSTRAINT fk_flightname foreign key (flight_name) references airlines(id);
+
 commit;
 
 
@@ -31,6 +35,9 @@ create table bookingairlines(id int primary key,airlines_id int CONSTRAINT fk_bo
 adult_seats int,child_seats int,co_passangersname varchar2(40),
 price int,booking_date date,
 passengers_id int CONSTRAINT fk_booking_passengers_id references passengers(id));
+
+alter table BOOKINGAIRLINES ADD infant int;
+
 
 select * from bookingairlines;
 

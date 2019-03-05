@@ -41,6 +41,8 @@ public class AddBookingFlightServlet extends HttpServlet {
 				.getParameter("adultseats")));
 		booking.setChildSeats(Integer.parseInt(request
 				.getParameter("childseats")));
+		booking.setInfant(Integer.parseInt(request
+				.getParameter("infant")));
 		booking.setCoPassangersname(request.getParameter("names"));
 		LocalDate date = LocalDate.now();
 		booking.setBookingDate(date);

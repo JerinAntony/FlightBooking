@@ -1,6 +1,8 @@
 package com.chainsys.flightbooking.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.flightbooking.dao.AirlinesDAO;
 import com.chainsys.flightbooking.dao.PassangersDAO;
+import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.Passangers;
 
 /**
@@ -46,6 +50,9 @@ public class LoginServlet extends HttpServlet {
 				String name = pass.getName().toUpperCase();
 				session.setAttribute("NAME", name);
 				session.setAttribute("PASSANGER", pass);
+				AirlinesDAO airlinesDAO = new AirlinesDAO();
+				ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
+				request.setAttribute("AIRLINE", airlinesList);
 				RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 				rd.forward(request, response);
 
@@ -56,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 						.getRequestDispatcher("login.jsp");
 				rd.forward(request, response);
 			}
-			
+
 		} catch (Exception e) {
 
 			e.printStackTrace();

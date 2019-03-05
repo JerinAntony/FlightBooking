@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.chainsys.flightbooking.model.Airlines;
+import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.util.ConnectionUtil;
 
 public class AirlinesDAO {
@@ -36,4 +37,22 @@ public class AirlinesDAO {
 		ConnectionUtil.close(connection, preparedStatement, null);
 		return airlinesLists;
 	}
+
+	public Airlines findById(int airlinesid) throws SQLException {
+		Airlines airline = new Airlines();
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "SELECT id,airlines_name FROM airlines where id=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setInt(1, airlinesid);
+		ResultSet resultset = preparedStatement.executeQuery();
+
+		if (resultset.next()) {
+			airline = new Airlines();
+			airline.setId(resultset.getInt("id"));
+			airline.setAirlinesName(resultset.getString("airlines_name"));
+		}
+		ConnectionUtil.close(connection, preparedStatement, resultset);
+		return airline;
+	}
+
 }

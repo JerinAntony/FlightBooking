@@ -3,7 +3,7 @@ package com.chainsys.flightbooking.model;
 public class AirlinesFlight {
 
 	private int id;
-	private String flightName;
+	private Airlines flightName;
 	private String flightNo;
 	private int adultSeats;
 	private int childSeats;
@@ -20,11 +20,11 @@ public class AirlinesFlight {
 		this.id = id;
 	}
 
-	public String getFlightName() {
+	public Airlines getFlightName() {
 		return flightName;
 	}
 
-	public void setFlightName(String flightName) {
+	public void setFlightName(Airlines flightName) {
 		this.flightName = flightName;
 	}
 
@@ -86,7 +86,7 @@ public class AirlinesFlight {
 
 	@Override
 	public String toString() {
-		return "Airlines [id=" + id + ", flightName=" + flightName
+		return "AirlinesFlight [id=" + id + ", flightName=" + flightName
 				+ ", flightNo=" + flightNo + ", adultSeats=" + adultSeats
 				+ ", childSeats=" + childSeats + ", adultPrice=" + adultPrice
 				+ ", childPrice=" + childPrice + ", flightClass=" + flightClass

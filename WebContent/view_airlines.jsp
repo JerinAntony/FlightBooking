@@ -19,6 +19,7 @@ form {
 }
 </style>
 <body>
+	<div align="left" style="color: white">Welcome ${NAME}</div>
 	<div align="center">
 		<form method="post">
 			<h3 style="color: white">Airlines Available</h3>
@@ -55,7 +56,7 @@ form {
 					<c:forEach var="airlines" items="${AIRLINES}">
 						<tr>
 							<td
-								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${airlines.flightName}</td>
+								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${airlines.flightName.airlinesName}</td>
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${airlines.flightNo}</td>
 							<td
@@ -83,7 +84,9 @@ form {
 	<div align="center">
 		<table>
 			<tr>
-				<td><a href="home.jsp" style="color: white">Back</a></td>
+				<td><!-- <form method="post" action="ViewAirlinesInDropdownServlet">
+						<button type="submit">Back</button>
+					</form> --></td>
 				<td width="20px"></td>
 				<td>
 					<form method="post" action="LogoutServlet">

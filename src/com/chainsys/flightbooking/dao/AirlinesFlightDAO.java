@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.model.BookingAirlines;
 import com.chainsys.flightbooking.util.ConnectionUtil;
@@ -16,7 +17,7 @@ public class AirlinesFlightDAO {
 		Connection connection = ConnectionUtil.getConnection();
 		String url = "INSERT INTO airlines_flight(id,flight_name,flight_no,adult_seats,child_seats,adult_price,child_price,status,flight_class) VALUES(seq_airlines_id.NEXTVAL,?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedstatement = connection.prepareStatement(url);
-		preparedstatement.setString(1, airlines.getFlightName());
+		preparedstatement.setInt(1, airlines.getFlightName().getId());
 		preparedstatement.setString(2, airlines.getFlightNo());
 		preparedstatement.setLong(3, airlines.getAdultSeats());
 		preparedstatement.setLong(4, airlines.getChildSeats());
@@ -36,10 +37,13 @@ public class AirlinesFlightDAO {
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultset = preparedStatement.executeQuery();
 		airlinesLists = new ArrayList<>();
+		AirlinesDAO airlineDAO = new AirlinesDAO();
 		while (resultset.next()) {
 			AirlinesFlight airline = new AirlinesFlight();
 			airline.setId(resultset.getInt("id"));
-			airline.setFlightName(resultset.getString("flight_name"));
+			Airlines airlinename = airlineDAO.findById(Integer
+					.parseInt(resultset.getString("flight_name")));
+			airline.setFlightName(airlinename);
 			airline.setFlightNo(resultset.getString("flight_no"));
 			airline.setAdultSeats(Integer.parseInt(resultset
 					.getString("adult_seats")));
@@ -65,10 +69,13 @@ public class AirlinesFlightDAO {
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultset = preparedStatement.executeQuery();
 		airlinesLists = new ArrayList<>();
+		AirlinesDAO airlineDAO = new AirlinesDAO();
 		while (resultset.next()) {
 			AirlinesFlight airline = new AirlinesFlight();
 			airline.setId(resultset.getInt("id"));
-			airline.setFlightName(resultset.getString("flight_name"));
+			Airlines airlinename = airlineDAO.findById(Integer
+					.parseInt(resultset.getString("flight_name")));
+			airline.setFlightName(airlinename);
 			airline.setFlightNo(resultset.getString("flight_no"));
 			airline.setAdultSeats(Integer.parseInt(resultset
 					.getString("adult_seats")));
@@ -93,11 +100,13 @@ public class AirlinesFlightDAO {
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setInt(1, airlinesid);
 		ResultSet resultset = preparedStatement.executeQuery();
-
+		AirlinesDAO airlineDAO = new AirlinesDAO();
 		if (resultset.next()) {
 			airline = new AirlinesFlight();
 			airline.setId(resultset.getInt("id"));
-			airline.setFlightName(resultset.getString("flight_name"));
+			Airlines airlinename = airlineDAO.findById(Integer
+					.parseInt(resultset.getString("flight_name")));
+			airline.setFlightName(airlinename);
 			airline.setFlightNo(resultset.getString("flight_no"));
 			airline.setAdultSeats(Integer.parseInt(resultset
 					.getString("adult_seats")));
@@ -123,11 +132,13 @@ public class AirlinesFlightDAO {
 		preparedStatement.setInt(1, airlinesid);
 		preparedStatement.setString(2, flightclass);
 		ResultSet resultset = preparedStatement.executeQuery();
-
+		AirlinesDAO airlineDAO = new AirlinesDAO();
 		if (resultset.next()) {
 			airline = new AirlinesFlight();
 			airline.setId(resultset.getInt("id"));
-			airline.setFlightName(resultset.getString("flight_name"));
+			Airlines airlinename = airlineDAO.findById(Integer
+					.parseInt(resultset.getString("flight_name")));
+			airline.setFlightName(airlinename);
 			airline.setFlightNo(resultset.getString("flight_no"));
 			airline.setAdultSeats(Integer.parseInt(resultset
 					.getString("adult_seats")));

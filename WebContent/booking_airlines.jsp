@@ -83,7 +83,7 @@ input[type=submit]:hover {
 					<td style="color: white;">Airlines :</td>
 					<td><select name="airlines" id="airLines">
 							<c:forEach var="airlines" items="${AIRLINES}">
-								<option value="${airlines.id}">${airlines.flightName}</option>
+								<option value="${airlines.id}">${airlines.flightName.airlinesName}</option>
 							</c:forEach>
 					</select></td>
 				</tr>
@@ -98,7 +98,8 @@ input[type=submit]:hover {
 					<td></td>
 				</tr>
 				<tr>
-					<td style="color: white;">Adult seats :</td>
+					<td style="color: white;">Adult seats :<br />(age 12+)
+					</td>
 					<td><select name="adultseats" id="adultseats">
 							<option value="">Select Seats</option>
 					</select></td>
@@ -107,9 +108,23 @@ input[type=submit]:hover {
 					<td></td>
 				</tr>
 				<tr>
-					<td style="color: white;">Child seats :</td>
+					<td style="color: white;">Children seats :<br />(age 2-11)
+					</td>
 					<td><select name="childseats" id="childseats">
 							<option value="">Select Seats</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="color: white;">Infant:<br />(Ages 0-1,on lap)
+					</td>
+					<td><select name="infant">
+							<option value="">Select</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
 					</select></td>
 				</tr>
 				<tr>
