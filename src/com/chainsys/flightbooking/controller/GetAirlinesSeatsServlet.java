@@ -18,6 +18,8 @@ public class GetAirlinesSeatsServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		int airlineid = Integer.parseInt(request.getParameter("airLines"));
 		String flightclass = request.getParameter("flightClass");
+		System.out.println(airlineid);
+		System.out.println(flightclass);
 		AirlinesFlightDAO airlinedao = new AirlinesFlightDAO();
 		try {
 

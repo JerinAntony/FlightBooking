@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.flightbooking.dao.AirlinesFlightDAO;
 import com.chainsys.flightbooking.dao.BookingFlightDAO;
 import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.model.BookingAirlines;
@@ -34,15 +35,23 @@ public class AddBookingFlightServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Passangers passanger = (Passangers) session.getAttribute("PASSANGER");
 		BookingAirlines booking = new BookingAirlines();
-		AirlinesFlight airlines = new AirlinesFlight();
-		airlines.setId(Integer.parseInt(request.getParameter("airlines")));
-		booking.setAirlinesId(airlines);
+		int airlineid = Integer.parseInt(request.getParameter("airlines"));
+		String flightclass = request.getParameter("flightclass");
+		AirlinesFlightDAO airlinesFlightDAO = new AirlinesFlightDAO();
+		AirlinesFlight airlinesFlight = new AirlinesFlight();
+		try {
+			airlinesFlight = airlinesFlightDAO.findByIdClass(airlineid,
+					flightclass);
+			System.out.println();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		booking.setAirlinesId(airlinesFlight);
 		booking.setAdultSeats(Integer.parseInt(request
 				.getParameter("adultseats")));
 		booking.setChildSeats(Integer.parseInt(request
 				.getParameter("childseats")));
-		booking.setInfant(Integer.parseInt(request
-				.getParameter("infant")));
+		booking.setInfant(Integer.parseInt(request.getParameter("infant")));
 		booking.setCoPassangersname(request.getParameter("names"));
 		LocalDate date = LocalDate.now();
 		booking.setBookingDate(date);

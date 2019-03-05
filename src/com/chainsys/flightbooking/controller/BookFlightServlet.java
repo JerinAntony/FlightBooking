@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chainsys.flightbooking.dao.AirlinesDAO;
 import com.chainsys.flightbooking.dao.AirlinesFlightDAO;
+import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.AirlinesFlight;
 
 /**
@@ -26,10 +28,10 @@ public class BookFlightServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
+		AirlinesDAO airlinesDAO = new AirlinesDAO();
 		try {
-			ArrayList<AirlinesFlight> airlinesList = new ArrayList<>();
-			AirlinesFlight airlines = new AirlinesFlight();
+			ArrayList<Airlines> airlinesList = new ArrayList<>();
+			Airlines airlines = new Airlines();
 			airlinesList.add(airlines);
 			airlinesList.addAll(airlinesDAO.findAll());
 			System.out.println(airlinesList.size());

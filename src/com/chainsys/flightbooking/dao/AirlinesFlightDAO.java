@@ -127,7 +127,7 @@ public class AirlinesFlightDAO {
 			throws SQLException {
 		AirlinesFlight airline = new AirlinesFlight();
 		Connection connection = ConnectionUtil.getConnection();
-		String sql = "SELECT id,flight_name,flight_no,adult_seats,child_seats,adult_price,child_price,status,flight_class FROM airlines_flight where id=? and flight_class=?";
+		String sql = "SELECT id,flight_name,flight_no,adult_seats,child_seats,adult_price,child_price,status,flight_class FROM airlines_flight where flight_name=? and flight_class=?";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setInt(1, airlinesid);
 		preparedStatement.setString(2, flightclass);

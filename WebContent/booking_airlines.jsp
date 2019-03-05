@@ -83,7 +83,7 @@ input[type=submit]:hover {
 					<td style="color: white;">Airlines :</td>
 					<td><select name="airlines" id="airLines">
 							<c:forEach var="airlines" items="${AIRLINES}">
-								<option value="${airlines.id}">${airlines.flightName.airlinesName}</option>
+								<option value="${airlines.id}">${airlines.airlinesName}</option>
 							</c:forEach>
 					</select></td>
 				</tr>

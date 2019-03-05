@@ -85,7 +85,7 @@ form {
 					<c:forEach var="booking" items="${BOOKING}">
 						<tr>
 							<td
-								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.airlinesId.flightName}</td>
+								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.airlinesId.flightName.airlinesName}</td>
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.adultSeats}</td>
 							<td
