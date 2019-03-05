@@ -17,6 +17,32 @@ body {
 form {
 	display: inline-block;
 }
+
+.button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 8px 30px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+}
+
+.button1 {
+	background-color: white;
+	color: black;
+	border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+	background-color: #4CAF50;
+	color: white;
+}
 </style>
 <body>
 	<div align="left" style="color: white">Welcome ${NAME}</div>
@@ -84,13 +110,13 @@ form {
 	<div align="center">
 		<table>
 			<tr>
-				<td><!-- <form method="post" action="ViewAirlinesInDropdownServlet">
-						<button type="submit">Back</button>
-					</form> --></td>
+				<td><form method="post" action="ViewAirlinesInDropdownServlet">
+						<button type="submit" class="button button1">Back</button>
+					</form></td>
 				<td width="20px"></td>
 				<td>
 					<form method="post" action="LogoutServlet">
-						<button type="submit">Logout</button>
+						<button type="submit" class="button button1">Logout</button>
 					</form>
 				</td>
 			</tr>
