@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Booking Summary</title>
-</head>
+<title>Ticket Cancellation</title>
 <style>
 body {
 	background: url("background-banner.jpg");
@@ -16,6 +15,16 @@ body {
 
 form {
 	display: inline-block;
+}
+
+input[type=text] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
 }
 
 .button {
@@ -44,7 +53,26 @@ form {
 	color: white;
 }
 </style>
+</head>
 <body>
+	<div align="center">
+		<form method="post" action="AirlinesServlet">
+			<table>
+
+				<tr>
+					<td style="color: white;">PNR STATUS :<br />(Cancellation)
+					</td>
+					<td><input type="text" name="pnrstatus"></td>
+					<td><button type="submit" class="button button1"
+							name="ticketcancelbypnr" value="ticketcancelbypnr">Search</button></td>
+				</tr>
+				<tr>
+					<td style="color: red" colspan="2">${DISPLAY}</td>
+					<td></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 	<div align="center">
 		<form method="post" action="TicketCancellationServlet">
 			<h3 style="color: white">Booking Summary</h3>
@@ -84,14 +112,19 @@ form {
 						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Passenger
 						</th>
-						<!-- <th
+						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Status
-						</th> -->
+						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="booking" items="${BOOKING}">
-						<%-- <input type="hidden" name="ticketid" value="${booking.id}"> --%>
+						<input type="hidden" name="ticketid" value="${booking.id}">
+							<input type="hidden" name="adultseats" value="${booking.adultSeats}">
+						<input type="hidden" name="childseats"
+							value="${booking.childSeats}">
+							<input type="hidden" name="airlinesid"
+							value="${booking.airlinesId.id}">
 						<tr>
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.airlinesId.flightName.airlinesName}</td>
@@ -114,9 +147,9 @@ form {
 
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.passenger_id.name}</td>
-							<!-- <td
+							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><button
-									type="submit">Cancel</button></td> -->
+									type="submit">Cancel</button></td>
 
 						</tr>
 					</c:forEach>

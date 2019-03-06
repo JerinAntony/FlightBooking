@@ -30,7 +30,7 @@ public class BookingSummaryServlet extends HttpServlet {
 
 		ArrayList<BookingAirlines> bookingList = new ArrayList<>();
 		try {
-			bookingList.addAll(bookingDAO.findAll());
+			bookingList.addAll(bookingDAO.findBookingDetails());
 			request.setAttribute("BOOKING", bookingList);
 			RequestDispatcher rd = request
 					.getRequestDispatcher("booking_summary.jsp");

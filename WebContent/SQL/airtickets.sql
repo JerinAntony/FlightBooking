@@ -37,7 +37,8 @@ price int,booking_date date,
 passengers_id int CONSTRAINT fk_booking_passengers_id references passengers(id));
 
 alter table BOOKINGAIRLINES ADD infant int;
-
+ALTER TABLE BOOKINGAIRLINES ADD cancel_status int;
+ALTER TABLE BOOKINGAIRLINES ADD pnr_no VARCHAR2(10);
 
 select * from bookingairlines;
 

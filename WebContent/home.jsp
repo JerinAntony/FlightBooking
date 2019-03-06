@@ -162,7 +162,7 @@ input[type=number] {
 		<table>
 			<tr>
 				<td><form method="post" action="AirlinesServlet">
-						<button type="submit" class="button button1">Add Airlines</button>
+						<button type="submit" name="addairlines" value="airlines" class="button button1">Add Airlines</button>
 					</form></td>
 				<td>
 					<form method="post" action="CheckFlightAvailablityServlet">
@@ -181,6 +181,13 @@ input[type=number] {
 							Summary</button>
 					</form>
 				</td>
+				<td>
+					<form method="post" action="AirlinesServlet">
+						<button type="submit" name="calcellation" value="ticketcancel" class="button button1">Ticket
+							Cancellation</button>
+					</form>
+				</td>
+				
 				<td>
 					<form method="post" action="RedirecttoChangePasswordServlet">
 						<button type="submit" class="button button1">Change

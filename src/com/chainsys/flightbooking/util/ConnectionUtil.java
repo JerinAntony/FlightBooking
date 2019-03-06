@@ -8,6 +8,11 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 
+	/**
+	 * Connection Method
+	 * 
+	 * @return
+	 */
 	public static Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -16,12 +21,20 @@ public class ConnectionUtil {
 			connection = DriverManager.getConnection(url, "hr", "hr");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Unable to load class driver");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return connection;
 	}
 
+	/**
+	 * Close Connection Method
+	 * 
+	 * @param conn
+	 * @param stmt
+	 * @param resultset
+	 */
 	public static void close(Connection conn, PreparedStatement stmt,
 			ResultSet resultset) {
 		try {

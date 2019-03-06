@@ -1,6 +1,10 @@
 package com.chainsys.flightbooking.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -12,11 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chainsys.flightbooking.dao.AirlinesDAO;
 import com.chainsys.flightbooking.dao.AirlinesFlightDAO;
 import com.chainsys.flightbooking.dao.BookingFlightDAO;
+import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.model.BookingAirlines;
 import com.chainsys.flightbooking.model.Passangers;
+import com.chainsys.flightbooking.util.ConnectionUtil;
 import com.chainsys.flightbooking.validator.FlightBookingValidator;
 
 /**
@@ -37,12 +44,13 @@ public class AddBookingFlightServlet extends HttpServlet {
 		BookingAirlines booking = new BookingAirlines();
 		int airlineid = Integer.parseInt(request.getParameter("airlines"));
 		String flightclass = request.getParameter("flightclass");
-		AirlinesFlightDAO airlinesFlightDAO = new AirlinesFlightDAO();
 		AirlinesFlight airlinesFlight = new AirlinesFlight();
+
+		AirlinesFlightDAO airlinesFlightDAO = new AirlinesFlightDAO();
+
 		try {
 			airlinesFlight = airlinesFlightDAO.findByIdClass(airlineid,
 					flightclass);
-			System.out.println();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,13 +64,25 @@ public class AddBookingFlightServlet extends HttpServlet {
 		LocalDate date = LocalDate.now();
 		booking.setBookingDate(date);
 		booking.setPassenger_id(passanger);
+		booking.setCancelStatus(0);
+		// Generate PNR NO for Passangers
+		StringBuilder sb = new StringBuilder();
+		LocalDate day = LocalDate.now();
+		System.out.println("day" + day.getDayOfMonth());
+		sb.append("EMR" + "" + day.getDayOfMonth());
+		sb.append(passanger.getName().length() + day.getYear());
+
+		System.out.println("pnr" + sb.toString());
+		booking.setPnrNo(sb.toString());
 		BookingFlightDAO bookingDAO = new BookingFlightDAO();
 		try {
 			FlightBookingValidator bookingValidator = new FlightBookingValidator();
 			bookingValidator.checkFlightBooking(booking);
+			//bookingDAO.findByIdClass(airlineid, flightclass);
 			bookingDAO.addBookingFlight(booking);
+
 			ArrayList<BookingAirlines> bookingList = new ArrayList<>();
-			bookingList.addAll(bookingDAO.findAll());
+			bookingList.addAll(bookingDAO.findBookingDetails());
 			request.setAttribute("BOOKING", bookingList);
 			RequestDispatcher rd = request
 					.getRequestDispatcher("booking_summary.jsp");
@@ -70,6 +90,38 @@ public class AddBookingFlightServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public AirlinesFlight findByIdClass(int airlinesid, String flightclass)
+			throws SQLException {
+		AirlinesFlight airline = new AirlinesFlight();
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "SELECT id,flight_name,flight_no,adult_seats,child_seats,adult_price,child_price,status,flight_class FROM airlines_flight where flight_name=? and flight_class=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setInt(1, airlinesid);
+		preparedStatement.setString(2, flightclass);
+		ResultSet resultset = preparedStatement.executeQuery();
+		AirlinesDAO airlineDAO = new AirlinesDAO();
+		if (resultset.next()) {
+			airline = new AirlinesFlight();
+			airline.setId(resultset.getInt("id"));
+			Airlines airlinename = airlineDAO.findById(Integer
+					.parseInt(resultset.getString("flight_name")));
+			airline.setFlightName(airlinename);
+			airline.setFlightNo(resultset.getString("flight_no"));
+			airline.setAdultSeats(Integer.parseInt(resultset
+					.getString("adult_seats")));
+			airline.setChildSeats(Integer.parseInt(resultset
+					.getString("child_seats")));
+			airline.setAdultPrice(Integer.parseInt(resultset
+					.getString("adult_price")));
+			airline.setChildPrice(Integer.parseInt(resultset
+					.getString("child_price")));
+			airline.setStatus(resultset.getString("status"));
+			airline.setFlightClass(resultset.getString("flight_class"));
+		}
+		ConnectionUtil.close(connection, preparedStatement, null);
+		return airline;
 	}
 
 }

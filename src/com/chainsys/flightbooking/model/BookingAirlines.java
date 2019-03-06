@@ -12,6 +12,8 @@ public class BookingAirlines {
 	private String coPassangersname;
 	private int price;
 	private LocalDate bookingDate;
+	private int cancelStatus;
+	private String pnrNo;
 	private Passangers passenger_id;
 
 	public int getId() {
@@ -87,14 +89,37 @@ public class BookingAirlines {
 	public void setPassenger_id(Passangers passenger_id) {
 		this.passenger_id = passenger_id;
 	}
+	
+
+	public int getCancelStatus() {
+		return cancelStatus;
+	}
+
+	public void setCancelStatus(int cancelStatus) {
+		this.cancelStatus = cancelStatus;
+	}
+	
+	
+
+	public String getPnrNo() {
+		return pnrNo;
+	}
+
+	public void setPnrNo(String pnrNo) {
+		this.pnrNo = pnrNo;
+	}
 
 	@Override
 	public String toString() {
 		return "BookingAirlines [id=" + id + ", airlinesId=" + airlinesId
 				+ ", adultSeats=" + adultSeats + ", childSeats=" + childSeats
-				+ ", coPassangersname=" + coPassangersname + ", price=" + price
-				+ ", bookingDate=" + bookingDate + ", passenger_id="
-				+ passenger_id + "]";
+				+ ", infant=" + infant + ", coPassangersname="
+				+ coPassangersname + ", price=" + price + ", bookingDate="
+				+ bookingDate + ", cancelStatus=" + cancelStatus + ", pnrNo="
+				+ pnrNo + ", passenger_id=" + passenger_id + "]";
 	}
+
+
+	
 
 }

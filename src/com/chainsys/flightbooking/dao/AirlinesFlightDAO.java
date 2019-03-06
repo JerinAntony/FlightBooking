@@ -26,7 +26,7 @@ public class AirlinesFlightDAO {
 		preparedstatement.setString(7, airlines.getStatus());
 		preparedstatement.setString(8, airlines.getFlightClass());
 		int row = preparedstatement.executeUpdate();
-		System.out.println(row);
+		ConnectionUtil.close(connection, preparedstatement, null);
 	}
 
 	public ArrayList<AirlinesFlight> findAll() throws SQLException {
@@ -181,4 +181,31 @@ public class AirlinesFlightDAO {
 
 		preparedStatement.executeUpdate();
 	}
+
+	public void updateCancelledSeats(AirlinesFlight airlinesflight)
+			throws SQLException {
+		Connection connection = ConnectionUtil.getConnection();
+		String url = "UPDATE airlines_flight SET adult_seats=?,child_seats=?,status=? where id=?";
+		PreparedStatement preparedStatement = connection.prepareStatement(url);
+		AirlinesFlight airline = findById(airlinesflight.getId());
+		if (airline != null) {
+			int adultseats = airline.getAdultSeats()
+					+ airlinesflight.getAdultSeats();
+			int childseats = airline.getChildSeats()
+					+ airlinesflight.getChildSeats();
+			airline.setAdultSeats(adultseats);
+			airline.setChildSeats(childseats);
+			if (airline.getAdultSeats() > 0) {
+				airline.setStatus("Y");
+			}
+		}
+		preparedStatement.setInt(1, airline.getAdultSeats());
+		preparedStatement.setInt(2, airline.getChildSeats());
+		preparedStatement.setString(3, airline.getStatus());
+		preparedStatement.setInt(3, airline.getId());
+
+		preparedStatement.executeUpdate();
+		ConnectionUtil.close(connection, preparedStatement, null);
+	}
+
 }
