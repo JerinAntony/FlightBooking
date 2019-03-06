@@ -82,16 +82,17 @@ form {
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Booking
 							date</th>
 						<th
+							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Status
+						</th>
+
+						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Passenger
 						</th>
-						<!-- <th
-							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Status
-						</th> -->
+
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="booking" items="${BOOKING}">
-						<%-- <input type="hidden" name="ticketid" value="${booking.id}"> --%>
 						<tr>
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.airlinesId.flightName.airlinesName}</td>
@@ -112,11 +113,21 @@ form {
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.bookingDate}</td>
 
+
+							<td
+								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">
+								<c:if test="${booking.cancelStatus=='0'}">
+									Confirmed
+									
+								</c:if> <c:if test="${booking.cancelStatus=='1'}">
+									Cancelled
+									
+								</c:if>
+
+							</td>
+
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.passenger_id.name}</td>
-							<!-- <td
-								style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><button
-									type="submit">Cancel</button></td> -->
 
 						</tr>
 					</c:forEach>

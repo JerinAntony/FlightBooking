@@ -17,48 +17,57 @@ public class BookingFlightDAO {
 
 	public void addBookingFlight(BookingAirlines bookairlines)
 			throws SQLException {
-		Connection connection = ConnectionUtil.getConnection();
-		String url = "INSERT INTO bookingairlines(id,airlines_id,adult_seats,child_seats,infant,co_passangersname,price,booking_date,passengers_id,cancel_status,pnr_no) VALUES(seq_bookingairlines_id.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
-		PreparedStatement preparedStatement = connection.prepareStatement(url);
-		preparedStatement.setInt(1, bookairlines.getAirlinesId().getId());
-		preparedStatement.setLong(2, bookairlines.getAdultSeats());
-		preparedStatement.setLong(3, bookairlines.getChildSeats());
-		preparedStatement.setInt(4, bookairlines.getInfant());
-		preparedStatement.setString(5, bookairlines.getCoPassangersname());
-		// Calculating Filght Price Amount
-		AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
-		AirlinesFlight airlines = airlinesDAO.findById(bookairlines
-				.getAirlinesId().getId());
-		if (airlines != null) {
-			int adultamount = bookairlines.getAdultSeats()
-					* airlines.getAdultPrice();
-			int childamount = bookairlines.getChildSeats()
-					* airlines.getChildPrice();
-			int totalamount = adultamount + childamount;
-			bookairlines.setPrice(totalamount);
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			String url = "INSERT INTO bookingairlines(id,airlines_id,adult_seats,child_seats,infant,co_passangersname,price,booking_date,passengers_id,cancel_status,pnr_no) VALUES(seq_bookingairlines_id.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
+			preparedStatement = connection.prepareStatement(url);
+			preparedStatement.setInt(1, bookairlines.getAirlinesId().getId());
+			preparedStatement.setLong(2, bookairlines.getAdultSeats());
+			preparedStatement.setLong(3, bookairlines.getChildSeats());
+			preparedStatement.setInt(4, bookairlines.getInfant());
+			preparedStatement.setString(5, bookairlines.getCoPassangersname());
+			// Calculating Filght Price Amount
+			AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
+			AirlinesFlight airlines = airlinesDAO.findById(bookairlines
+					.getAirlinesId().getId());
+			if (airlines != null) {
+				int adultamount = bookairlines.getAdultSeats()
+						* airlines.getAdultPrice();
+				int childamount = bookairlines.getChildSeats()
+						* airlines.getChildPrice();
+				int totalamount = adultamount + childamount;
+				bookairlines.setPrice(totalamount);
+			}
+			// Update Booking seats in Airlines
+			airlinesDAO.updateAirlinesSeats(bookairlines);
+			preparedStatement.setDouble(6, bookairlines.getPrice());
+			preparedStatement.setDate(7,
+					Date.valueOf(bookairlines.getBookingDate()));
+			preparedStatement.setInt(8, bookairlines.getPassenger_id().getId());
+			preparedStatement.setInt(9, bookairlines.getCancelStatus());
+			preparedStatement.setString(10, bookairlines.getPnrNo());
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(connection, preparedStatement, null);
 		}
-		// Update Booking seats in Airlines
-		airlinesDAO.updateAirlinesSeats(bookairlines);
-		preparedStatement.setDouble(6, bookairlines.getPrice());
-		preparedStatement.setDate(7,
-				Date.valueOf(bookairlines.getBookingDate()));
-		preparedStatement.setInt(8, bookairlines.getPassenger_id().getId());
-		preparedStatement.setInt(9, bookairlines.getCancelStatus());
-		preparedStatement.setString(10, bookairlines.getPnrNo());
-		preparedStatement.executeUpdate();
-		ConnectionUtil.close(connection, preparedStatement, null);
 	}
 
 	public ArrayList<BookingAirlines> findBookingDetails() {
-		Connection connection = ConnectionUtil.getConnection();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		ArrayList<BookingAirlines> bookinghistoryLists = new ArrayList<>();
-		String Url = "select a.airlines_name as airlinesname,f.flight_no as flightno,f.flight_class as flightclass,ba.infant as infant,ba.co_passangersname as copassangers,ba.adult_seats as adultseats,ba.child_seats as childseats,ba.price as price,ba.booking_date as bookingdate,p.name as passangername from BOOKINGAIRLINES ba "
+		String Url = "select a.airlines_name as airlinesname,f.flight_no as flightno,f.flight_class as flightclass,ba.infant as infant,ba.co_passangersname as copassangers,ba.adult_seats as adultseats,ba.child_seats as childseats,ba.price as price,ba.booking_date as bookingdate,ba.cancel_status as cancelstatus,p.name as passangername from BOOKINGAIRLINES ba "
 				+ "join AIRLINES_FLIGHT f on ba.airlines_id=f.id "
 				+ "join airlines a on f.flight_name=a.id "
 				+ "join passengers p on ba.passengers_id=p.id";
 		try {
-			PreparedStatement preparedStatement = connection
-					.prepareStatement(Url);
+			connection = ConnectionUtil.getConnection();
+			preparedStatement = connection.prepareStatement(Url);
 			ResultSet resultset = preparedStatement.executeQuery();
 			bookinghistoryLists = new ArrayList<>();
 			while (resultset.next()) {
@@ -83,16 +92,18 @@ public class BookingFlightDAO {
 				booking.setPrice(resultset.getInt("price"));
 				booking.setBookingDate(resultset.getDate("bookingdate")
 						.toLocalDate());
-
+				booking.setCancelStatus(resultset.getInt("cancelstatus"));
 				Passangers passenger = new Passangers();
 				passenger.setName(resultset.getString("passangername"));
 
 				booking.setPassenger_id(passenger);
 				bookinghistoryLists.add(booking);
-				ConnectionUtil.close(connection, preparedStatement, null);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(connection, preparedStatement, null);
 		}
 		return bookinghistoryLists;
 	}

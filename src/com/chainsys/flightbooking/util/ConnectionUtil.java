@@ -24,6 +24,7 @@ public class ConnectionUtil {
 			throw new RuntimeException("Unable to load class driver");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Unable to connect");
 		}
 		return connection;
 	}
