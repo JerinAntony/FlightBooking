@@ -17,16 +17,9 @@ increment by 1;
 ALTER TABLE PASSENGERS ADD father_dateofbirth date;
 
 create table airlines_flight(id int CONSTRAINT pk_airlines_id primary key,flight_name varchar2(30),flight_no varchar2(10),
-adult_seats int,child_seats int,adult_price int,child_price int,status char);
-
-alter table airlines ADD flight_class varchar(30);
-
-alter table AIRLINES_FLIGHT MODIFY flight_name int;
+adult_seats int,child_seats int,adult_price int,child_price int,status char,flight_class varchar(30));
 
 alter table AIRLINES_FLIGHT ADD CONSTRAINT fk_flightname foreign key (flight_name) references airlines(id);
-
-commit;
-
 
 create sequence seq_airlines_id
 start with 1
