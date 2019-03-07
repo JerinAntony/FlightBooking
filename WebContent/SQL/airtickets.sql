@@ -14,8 +14,6 @@ create sequence seq_passengers_id
 start with 1
 increment by 1;
 
-
-
 create table airlines_flight(id int CONSTRAINT pk_airlines_id primary key,flight_name varchar2(30),flight_no varchar2(10),
 adult_seats int,child_seats int,adult_price int,child_price int,status char,flight_class varchar(30));
 
@@ -33,15 +31,6 @@ passengers_id int CONSTRAINT fk_booking_passengers_id references passengers(id))
 alter table BOOKINGAIRLINES ADD infant int;
 ALTER TABLE BOOKINGAIRLINES ADD cancel_status int;
 ALTER TABLE BOOKINGAIRLINES ADD pnr_no VARCHAR2(10);
-
-select * from bookingairlines;
-
-delete from bookingairlines;
-
-select * from airlines;
-
-update airlines set ADULT_SEATS=30,CHILD_SEATS=16 where id=11;
-commit;
 
 create sequence seq_bookingairlines_id
 start with 1
