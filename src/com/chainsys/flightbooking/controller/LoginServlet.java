@@ -50,6 +50,7 @@ public class LoginServlet extends HttpServlet {
 				String name = pass.getName().toUpperCase();
 				session.setAttribute("NAME", name);
 				session.setAttribute("PASSANGER", pass);
+				session.setAttribute("PASSANGERID", pass.getId());
 				AirlinesDAO airlinesDAO = new AirlinesDAO();
 				ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
 				request.setAttribute("AIRLINE", airlinesList);

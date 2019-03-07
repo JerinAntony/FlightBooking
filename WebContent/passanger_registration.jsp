@@ -134,7 +134,7 @@ input[type=date] {
 
 				<tr align="left">
 					<td style="color: white">Phone no :</td>
-					<td><input type="number"
+					<td><input type="number"  maxlength="10"
 						pattern="([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})"
 						name="phone" required></td>
 				</tr>

@@ -5,20 +5,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import com.chainsys.flightbooking.model.Airlines;
-import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.util.ConnectionUtil;
 
 public class AirlinesDAO {
 
 	public void addAirline(Airlines airlines) throws SQLException {
-		Connection connection = ConnectionUtil.getConnection();
-		String url = "INSERT INTO airlines(id,airlines_name) VALUES(seq_airlinesid.NEXTVAL,?)";
-		PreparedStatement preparedstatement = connection.prepareStatement(url);
-		preparedstatement.setString(1, airlines.getAirlinesName());
-		preparedstatement.executeUpdate();
-		ConnectionUtil.close(connection, preparedstatement, null);
+		Connection connection = null;
+		PreparedStatement preparedstatement = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			String url = "INSERT INTO airlines(id,airlines_name) VALUES(seq_airlinesid.NEXTVAL,?)";
+			preparedstatement = connection.prepareStatement(url);
+			preparedstatement.setString(1, airlines.getAirlinesName());
+			preparedstatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(connection, preparedstatement, null);
+		}
 	}
 
 	public ArrayList<Airlines> findAll() throws SQLException {

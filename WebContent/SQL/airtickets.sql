@@ -1,4 +1,5 @@
-create table airlines(id int PRIMARY KEY,airlines_name varchar2(30));
+create table airlines(id int PRIMARY KEY,airlines_name varchar2(30) NOT NULL UNIQUE);
+
 create sequence seq_airlinesid 
 start with 1
 increment by 1;
@@ -52,5 +53,12 @@ commit;
 create sequence seq_bookingairlines_id
 start with 1
 increment by 1;
+
+CREATE TABLE flight_destinations(id int CONSTRAINT pk_flight_destinations_id PRIMARY KEY,place varchar2(30) NOT NULL UNIQUE,
+created_by int,created_time timestamp,updated_by int,updated_time timestamp);
+
+CREATE SEQUENCE flight_destinations_id_seq 
+START WITH 1
+INCREMENT by 1;
 
 
