@@ -8,13 +8,13 @@ create table passengers(id int CONSTRAINT pk_passangers_id primary key,name varc
 phonenumber long,username varchar2(20)not null,password varchar2(30) not null,
 created_date date);
 
-SELECT *  from passengers;
+ALTER TABLE PASSENGERS ADD father_dateofbirth date;
 
 create sequence seq_passengers_id
 start with 1
 increment by 1;
 
-ALTER TABLE PASSENGERS ADD father_dateofbirth date;
+
 
 create table airlines_flight(id int CONSTRAINT pk_airlines_id primary key,flight_name varchar2(30),flight_no varchar2(10),
 adult_seats int,child_seats int,adult_price int,child_price int,status char,flight_class varchar(30));
