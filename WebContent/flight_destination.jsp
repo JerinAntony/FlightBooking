@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,32 +76,57 @@ input[type=submit]:hover {
 	<div align="center" style="width: 900px">
 
 		<form method="post" action="AddFlightDestinationServlet">
-
-
 			<table>
 				<tr>
-					<td></td>
-					<td><h2 style="color: white;">Add Destination</h2></td>
-				</tr>
-				<tr>
-					<td style="color: white;">Flight Destination :</td>
-					<td><input type="text" name="flightdestination"></td>
-				</tr>
+					<td><table>
+							<tr>
+								<td></td>
+								<td><h2 style="color: white;">Add Destination</h2></td>
+							</tr>
+							<tr>
+								<td style="color: white;">Flight Destination :</td>
+								<td><input type="text" name="flightdestination"></td>
+							</tr>
 
 
 
-				<tr>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td align="center"><button style="width: 100px;" type="submit"
-							class="button button1">Save</button></td>
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="center"><button style="width: 100px;"
+										type="submit" class="button button1">Save</button></td>
+							</tr>
+						</table></td>
+					<td><table align="center"
+							style="font-family: times new roman; border-collapse: collapse; color: white">
+							<thead>
+								<tr>
+									<th
+										style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Flight
+										Destinations</th>
+
+
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="flightdestination" items="${FLIFHTDEST}">
+									<tr>
+										<td
+											style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${flightdestination.place}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table></td>
 				</tr>
 			</table>
 
+
+
 		</form>
+
 	</div>
 
 </body>

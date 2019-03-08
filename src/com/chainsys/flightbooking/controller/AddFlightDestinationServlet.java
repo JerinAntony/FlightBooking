@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import com.chainsys.flightbooking.dao.FlightDestinationDAO;
 import com.chainsys.flightbooking.model.FlightDestinations;
 import com.chainsys.flightbooking.model.Passangers;
+import com.chainsys.flightbooking.util.RequestDispatcherForward;
 
 /**
  * Servlet implementation class AddFlightDestinationServlet
@@ -41,6 +43,10 @@ public class AddFlightDestinationServlet extends HttpServlet {
 		FlightDestinationDAO flightDestinationDAO = new FlightDestinationDAO();
 		try {
 			flightDestinationDAO.addFlightDestination(flightDestination);
+			List<FlightDestinations> flightDestinationList=flightDestinationDAO.findAll();
+			request.setAttribute("FLIFHTDEST", flightDestinationList);
+			String page="flight_destination.jsp";
+			RequestDispatcherForward.forward(null, page, request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

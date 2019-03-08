@@ -2,6 +2,7 @@ package com.chainsys.flightbooking.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.flightbooking.dao.AirlinesDAO;
 import com.chainsys.flightbooking.dao.BookingFlightDAO;
+import com.chainsys.flightbooking.dao.FlightDestinationDAO;
 import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.BookingAirlines;
+import com.chainsys.flightbooking.model.FlightDestinations;
+import com.chainsys.flightbooking.util.RequestDispatcherForward;
 
 /**
  * Servlet implementation class AirlinesServlet
@@ -33,7 +37,7 @@ public class AirlinesServlet extends HttpServlet {
 		String cancenbutton = "";
 		String ticketCancellation = "";
 		String pnrno = "";
-
+		String flightdestination = "";
 		if (request.getParameter("addairlines") != null) {
 			buttonvalue = request.getParameter("addairlines");
 		}
@@ -44,6 +48,9 @@ public class AirlinesServlet extends HttpServlet {
 				&& request.getParameter("pnrstatus") != null) {
 			ticketCancellation = request.getParameter("ticketcancelbypnr");
 			pnrno = request.getParameter("pnrstatus");
+		}
+		if (request.getParameter("addflightdestination") != null) {
+			flightdestination = request.getParameter("addflightdestination");
 		}
 		try {
 			if (buttonvalue.equals("airlines")) {
@@ -64,6 +71,16 @@ public class AirlinesServlet extends HttpServlet {
 				request.setAttribute("BOOKING", bookingsummary);
 				RequestDispatcher rd = request
 						.getRequestDispatcher("ticket_cancellation.jsp");
+				rd.forward(request, response);
+			} else if (flightdestination.equals("addflightdestination")) {
+				FlightDestinationDAO flightDestinationDAO = new FlightDestinationDAO();
+				List<FlightDestinations> flightDestinationList = flightDestinationDAO
+						.findAll();
+				request.setAttribute("FLIFHTDEST", flightDestinationList);
+				String page = "flight_destination.jsp";
+				RequestDispatcherForward.forward(null, page, request, response);
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 				rd.forward(request, response);
 			}
 		} catch (Exception e) {

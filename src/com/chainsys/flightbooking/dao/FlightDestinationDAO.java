@@ -2,8 +2,12 @@ package com.chainsys.flightbooking.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.FlightDestinations;
 import com.chainsys.flightbooking.util.ConnectionUtil;
 
@@ -36,5 +40,22 @@ public class FlightDestinationDAO {
 			throw new Exception("Unable to Insert Destination");
 		}
 		return isStatus;
+	}
+	
+	public List<FlightDestinations> findAll() throws SQLException {
+		List<FlightDestinations> airlinesLists = new ArrayList<>();
+		Connection connection = ConnectionUtil.getConnection();
+		String sql = "SELECT id,place FROM FLIGHT_DESTINATIONS ORDER BY id";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		ResultSet resultset = preparedStatement.executeQuery();
+		airlinesLists = new ArrayList<>();
+		while (resultset.next()) {
+			FlightDestinations flightdestination = new FlightDestinations();
+			flightdestination.setId(resultset.getInt("id"));
+			flightdestination.setPlace(resultset.getString("place"));
+			airlinesLists.add(flightdestination);
+		}
+		ConnectionUtil.close(connection, preparedStatement, null);
+		return airlinesLists;
 	}
 }
