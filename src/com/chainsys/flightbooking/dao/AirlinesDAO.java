@@ -24,10 +24,10 @@ public class AirlinesDAO {
 			String url = "INSERT INTO airlines(id,airlines_name,created_by,created_time,updated_by,updated_time) VALUES(seq_airlinesid.NEXTVAL,?,?,?,?,?)";
 			preparedstatement = connection.prepareStatement(url);
 			preparedstatement.setString(1, airlines.getAirlinesName());
-			preparedstatement.setInt(3, airlines.getCreatedBy());
-			preparedstatement.setTimestamp(4, airlines.getCreatedTime());
-			preparedstatement.setInt(5, airlines.getUpdatedBy());
-			preparedstatement.setTimestamp(6, airlines.getUpdatedTime());
+			preparedstatement.setInt(2, airlines.getCreatedBy());
+			preparedstatement.setTimestamp(3, airlines.getCreatedTime());
+			preparedstatement.setInt(4, airlines.getUpdatedBy());
+			preparedstatement.setTimestamp(5, airlines.getUpdatedTime());
 			preparedstatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

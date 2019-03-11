@@ -172,8 +172,9 @@ input[type=number] {
 							class="button button1">Add Airlines</button>
 					</form></td>
 				<td><form method="post" action="AirlinesServlet">
-						<button type="submit" name="addairlinesflight" value="addairlinesflight"
-							class="button button1">Add Airlines Flights</button>
+						<button type="submit" name="addairlinesflight"
+							value="addairlinesflight" class="button button1">Add
+							Airlines Flights</button>
 					</form></td>
 				<td>
 					<form method="post" action="CheckFlightAvailablityServlet">
@@ -200,8 +201,9 @@ input[type=number] {
 				</td>
 
 				<td>
-					<form method="post" action="RedirecttoChangePasswordServlet">
-						<button type="submit" class="button button1">Change
+					<form method="post" action="AirlinesServlet">
+						<button type="submit" class="button button1"
+							name="changepasssword" value="changepasssword">Change
 							Password</button>
 					</form>
 				</td>

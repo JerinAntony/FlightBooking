@@ -50,8 +50,6 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("NAME", name);
 				session.setAttribute("PASSANGER", pass);
 				session.setAttribute("PASSANGERID", pass.getId());
-				AirlinesDAO airlinesDAO = new AirlinesDAO();
-				
 				RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 				rd.forward(request, response);
 

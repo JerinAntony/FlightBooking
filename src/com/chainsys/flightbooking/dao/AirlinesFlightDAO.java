@@ -19,21 +19,25 @@ public class AirlinesFlightDAO {
 	 * @param airlines
 	 * @throws SQLException
 	 */
-	public void addAirlinesFlight(AirlinesFlight airlines) throws SQLException {
+	public void addAirlinesFlight(AirlinesFlight airlinesflight) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedstatement = null;
 		try {
 			connection = ConnectionUtil.getConnection();
-			String url = "INSERT INTO airlines_flight(id,flight_name,flight_no,adult_seats,child_seats,adult_price,child_price,status,flight_class) VALUES(seq_airlines_id.NEXTVAL,?,?,?,?,?,?,?,?)";
+			String url = "INSERT INTO airlines_flight(id,flight_name,flight_no,adult_seats,child_seats,adult_price,child_price,status,flight_class,created_by,created_time,updated_by,updated_time) VALUES(seq_airlines_id.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?)";
 			preparedstatement = connection.prepareStatement(url);
-			preparedstatement.setInt(1, airlines.getFlightName().getId());
-			preparedstatement.setString(2, airlines.getFlightNo());
-			preparedstatement.setLong(3, airlines.getAdultSeats());
-			preparedstatement.setLong(4, airlines.getChildSeats());
-			preparedstatement.setDouble(5, airlines.getAdultPrice());
-			preparedstatement.setDouble(6, airlines.getChildPrice());
-			preparedstatement.setString(7, airlines.getStatus());
-			preparedstatement.setString(8, airlines.getFlightClass());
+			preparedstatement.setInt(1, airlinesflight.getFlightName().getId());
+			preparedstatement.setString(2, airlinesflight.getFlightNo());
+			preparedstatement.setLong(3, airlinesflight.getAdultSeats());
+			preparedstatement.setLong(4, airlinesflight.getChildSeats());
+			preparedstatement.setDouble(5, airlinesflight.getAdultPrice());
+			preparedstatement.setDouble(6, airlinesflight.getChildPrice());
+			preparedstatement.setString(7, airlinesflight.getStatus());
+			preparedstatement.setString(8, airlinesflight.getFlightClass());
+			preparedstatement.setInt(9, airlinesflight.getCreatedBy());
+			preparedstatement.setTimestamp(10, airlinesflight.getCreatedTime());
+			preparedstatement.setInt(11, airlinesflight.getUpdatedBy());
+			preparedstatement.setTimestamp(12, airlinesflight.getUpdatedTime());
 			preparedstatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -295,8 +299,7 @@ public class AirlinesFlightDAO {
 			preparedStatement.setInt(1, airline.getAdultSeats());
 			preparedStatement.setInt(2, airline.getChildSeats());
 			preparedStatement.setString(3, airline.getStatus());
-			preparedStatement.setInt(3, airline.getId());
-
+			preparedStatement.setInt(4, airline.getId());
 			preparedStatement.executeUpdate();
 
 		} catch (Exception e) {

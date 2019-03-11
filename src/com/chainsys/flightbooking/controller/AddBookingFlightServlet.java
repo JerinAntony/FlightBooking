@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -69,16 +71,20 @@ public class AddBookingFlightServlet extends HttpServlet {
 		StringBuilder sb = new StringBuilder();
 		LocalDate day = LocalDate.now();
 		System.out.println("day" + day.getDayOfMonth());
-		sb.append("EMR" + "" + day.getDayOfMonth());
-		sb.append(passanger.getName().length() + day.getYear());
-
+		sb.append("PNR" + "" + day.getDayOfMonth());
+		sb.append(passanger.getName().substring(1,4).toUpperCase());
 		System.out.println("pnr" + sb.toString());
 		booking.setPnrNo(sb.toString());
+		Timestamp datetime = Timestamp.valueOf(LocalDateTime.now());
+		booking.setCreatedBy(passanger.getId());
+		booking.setCreatedTime(datetime);
+		booking.setUpdatedBy(passanger.getId());
+		booking.setUpdatedTime(datetime);
 		BookingFlightDAO bookingDAO = new BookingFlightDAO();
 		try {
 			FlightBookingValidator bookingValidator = new FlightBookingValidator();
 			bookingValidator.checkFlightBooking(booking);
-			//bookingDAO.findByIdClass(airlineid, flightclass);
+			// bookingDAO.findByIdClass(airlineid, flightclass);
 			bookingDAO.addBookingFlight(booking);
 
 			ArrayList<BookingAirlines> bookingList = new ArrayList<>();

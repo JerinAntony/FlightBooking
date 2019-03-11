@@ -1,5 +1,7 @@
 package com.chainsys.flightbooking.model;
 
+import java.sql.Timestamp;
+
 public class AirlinesFlight {
 
 	private int id;
@@ -11,6 +13,10 @@ public class AirlinesFlight {
 	private int childPrice;
 	private String flightClass;
 	private String status;
+	private int createdBy;
+	private Timestamp createdTime;
+	private int updatedBy;
+	private Timestamp updatedTime;
 
 	public int getId() {
 		return id;
@@ -84,13 +90,47 @@ public class AirlinesFlight {
 		this.flightClass = flightClass;
 	}
 
+	public int getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Timestamp createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	public int getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public Timestamp getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Timestamp updatedTime) {
+		this.updatedTime = updatedTime;
+	}
+
 	@Override
 	public String toString() {
 		return "AirlinesFlight [id=" + id + ", flightName=" + flightName
 				+ ", flightNo=" + flightNo + ", adultSeats=" + adultSeats
 				+ ", childSeats=" + childSeats + ", adultPrice=" + adultPrice
 				+ ", childPrice=" + childPrice + ", flightClass=" + flightClass
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", createdBy=" + createdBy
+				+ ", createdTime=" + createdTime + ", updatedBy=" + updatedBy
+				+ ", updatedTime=" + updatedTime + "]";
 	}
 
 }

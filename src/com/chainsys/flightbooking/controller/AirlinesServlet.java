@@ -39,6 +39,7 @@ public class AirlinesServlet extends HttpServlet {
 		String pnrno = "";
 		String flightdestination = "";
 		String airlinesflight = "";
+		String changepasspage="";
 		if (request.getParameter("addairlines") != null) {
 			buttonvalue = request.getParameter("addairlines");
 		}
@@ -55,6 +56,8 @@ public class AirlinesServlet extends HttpServlet {
 		}
 		if (request.getParameter("addairlinesflight") != null) {
 			airlinesflight = request.getParameter("addairlinesflight");
+		}if(request.getParameter("changepasssword")!=null){
+			changepasspage=request.getParameter("changepasssword");
 		}
 		try {
 			if (buttonvalue.equals("airlines")) {
@@ -88,6 +91,10 @@ public class AirlinesServlet extends HttpServlet {
 				request.setAttribute("AIRLINE", airlinesList);
 				RequestDispatcher rd = request
 						.getRequestDispatcher("airlines_flight.jsp");
+				rd.forward(request, response);
+			}else if(changepasspage.equals("changepasssword")){
+				RequestDispatcher rd = request
+						.getRequestDispatcher("change_password.jsp");
 				rd.forward(request, response);
 			}
 

@@ -1,5 +1,6 @@
 package com.chainsys.flightbooking.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class BookingAirlines {
@@ -15,6 +16,10 @@ public class BookingAirlines {
 	private int cancelStatus;
 	private String pnrNo;
 	private Passangers passenger_id;
+	private int createdBy;
+	private Timestamp createdTime;
+	private int updatedBy;
+	private Timestamp updatedTime;
 
 	public int getId() {
 		return id;
@@ -48,8 +53,6 @@ public class BookingAirlines {
 		this.childSeats = childSeats;
 	}
 
-	
-	
 	public int getInfant() {
 		return infant;
 	}
@@ -89,7 +92,6 @@ public class BookingAirlines {
 	public void setPassenger_id(Passangers passenger_id) {
 		this.passenger_id = passenger_id;
 	}
-	
 
 	public int getCancelStatus() {
 		return cancelStatus;
@@ -98,8 +100,6 @@ public class BookingAirlines {
 	public void setCancelStatus(int cancelStatus) {
 		this.cancelStatus = cancelStatus;
 	}
-	
-	
 
 	public String getPnrNo() {
 		return pnrNo;
@@ -109,6 +109,38 @@ public class BookingAirlines {
 		this.pnrNo = pnrNo;
 	}
 
+	public int getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(int createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Timestamp createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	public int getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public Timestamp getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Timestamp updatedTime) {
+		this.updatedTime = updatedTime;
+	}
+
 	@Override
 	public String toString() {
 		return "BookingAirlines [id=" + id + ", airlinesId=" + airlinesId
@@ -116,10 +148,9 @@ public class BookingAirlines {
 				+ ", infant=" + infant + ", coPassangersname="
 				+ coPassangersname + ", price=" + price + ", bookingDate="
 				+ bookingDate + ", cancelStatus=" + cancelStatus + ", pnrNo="
-				+ pnrNo + ", passenger_id=" + passenger_id + "]";
+				+ pnrNo + ", passenger_id=" + passenger_id + ", createdBy="
+				+ createdBy + ", createdTime=" + createdTime + ", updatedBy="
+				+ updatedBy + ", updatedTime=" + updatedTime + "]";
 	}
-
-
-	
 
 }

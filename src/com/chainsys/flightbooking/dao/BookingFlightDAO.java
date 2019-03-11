@@ -15,19 +15,21 @@ import com.chainsys.flightbooking.util.ConnectionUtil;
 
 public class BookingFlightDAO {
 
-	public void addBookingFlight(BookingAirlines bookairlines)
+	public boolean addBookingFlight(BookingAirlines bookairlines)
 			throws SQLException {
+		boolean isSucess = false;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = ConnectionUtil.getConnection();
-			String url = "INSERT INTO bookingairlines(id,airlines_id,adult_seats,child_seats,infant,co_passangersname,price,booking_date,passengers_id,cancel_status,pnr_no) VALUES(seq_bookingairlines_id.NEXTVAL,?,?,?,?,?,?,?,?,?,?)";
+			String url = "INSERT INTO bookingairlines(id,airlines_id,adult_seats,child_seats,infant,co_passangersname,price,booking_date,passengers_id,cancel_status,pnr_no,created_by,created_time,updated_by,updated_time) VALUES(seq_bookingairlines_id.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			preparedStatement = connection.prepareStatement(url);
 			preparedStatement.setInt(1, bookairlines.getAirlinesId().getId());
 			preparedStatement.setLong(2, bookairlines.getAdultSeats());
 			preparedStatement.setLong(3, bookairlines.getChildSeats());
 			preparedStatement.setInt(4, bookairlines.getInfant());
 			preparedStatement.setString(5, bookairlines.getCoPassangersname());
+
 			// Calculating Filght Price Amount
 			AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
 			AirlinesFlight airlines = airlinesDAO.findById(bookairlines
@@ -48,20 +50,29 @@ public class BookingFlightDAO {
 			preparedStatement.setInt(8, bookairlines.getPassenger_id().getId());
 			preparedStatement.setInt(9, bookairlines.getCancelStatus());
 			preparedStatement.setString(10, bookairlines.getPnrNo());
-			preparedStatement.executeUpdate();
-
+			preparedStatement.setInt(11, bookairlines.getCreatedBy());
+			preparedStatement.setTimestamp(12, bookairlines.getCreatedTime());
+			preparedStatement.setInt(13, bookairlines.getUpdatedBy());
+			preparedStatement.setTimestamp(14, bookairlines.getUpdatedTime());
+			int row = preparedStatement.executeUpdate();
+			if (row > 0) {
+				isSucess = true;
+			} else {
+				isSucess = false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			ConnectionUtil.close(connection, preparedStatement, null);
 		}
+		return isSucess;
 	}
 
 	public ArrayList<BookingAirlines> findBookingDetails() {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ArrayList<BookingAirlines> bookinghistoryLists = new ArrayList<>();
-		String Url = "select a.airlines_name as airlinesname,f.flight_no as flightno,f.flight_class as flightclass,ba.infant as infant,ba.co_passangersname as copassangers,ba.adult_seats as adultseats,ba.child_seats as childseats,ba.price as price,ba.booking_date as bookingdate,ba.cancel_status as cancelstatus,p.name as passangername from BOOKINGAIRLINES ba "
+		String Url = "select a.airlines_name as airlinesname,f.flight_no as flightno,f.flight_class as flightclass,ba.infant as infant,ba.co_passangersname as copassangers,ba.adult_seats as adultseats,ba.child_seats as childseats,ba.price as price,ba.booking_date as bookingdate,ba.cancel_status as cancelstatus,ba.pnr_no as pnrno,p.name as passangername from BOOKINGAIRLINES ba "
 				+ "join AIRLINES_FLIGHT f on ba.airlines_id=f.id "
 				+ "join airlines a on f.flight_name=a.id "
 				+ "join passengers p on ba.passengers_id=p.id";
@@ -93,6 +104,7 @@ public class BookingFlightDAO {
 				booking.setBookingDate(resultset.getDate("bookingdate")
 						.toLocalDate());
 				booking.setCancelStatus(resultset.getInt("cancelstatus"));
+				booking.setPnrNo(resultset.getString("pnrno"));
 				Passangers passenger = new Passangers();
 				passenger.setName(resultset.getString("passangername"));
 

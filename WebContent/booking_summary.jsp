@@ -87,6 +87,10 @@ form {
 						</th>
 
 						<th
+							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">PNR
+							No</th>
+
+						<th
 							style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Passenger
 						</th>
 
@@ -126,6 +130,9 @@ form {
 								</c:if>
 
 							</td>
+
+							<td
+								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.pnrNo}</td>
 
 							<td
 								style="border: 1px solid #dddddd; text-align: left; padding: 8px;">${booking.passenger_id.name}</td>

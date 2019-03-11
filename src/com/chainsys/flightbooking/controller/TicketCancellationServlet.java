@@ -48,7 +48,6 @@ public class TicketCancellationServlet extends HttpServlet {
 				RequestDispatcherForward.forward(msg, page, request, response);
 				airlinesDAO.updateCancelledSeats(airlinesflight);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
