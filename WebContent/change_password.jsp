@@ -56,7 +56,7 @@ input[type=password] {
 
 </style>
 <body>
-
+<div align="left" style="color: white">Welcome ${NAME}</div>
 	<div align="center">
 
 		<form id="changepassword" method="post" action="ChangePasswordServlet">

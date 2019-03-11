@@ -1,6 +1,8 @@
 package com.chainsys.flightbooking.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -9,9 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.chainsys.flightbooking.dao.AirlinesDAO;
 import com.chainsys.flightbooking.model.Airlines;
+import com.chainsys.flightbooking.util.RequestDispatcherForward;
+import com.chainsys.flightbooking.validator.AirlinesValidator;
 
 /**
  * Servlet implementation class AddAirlinesServlet
@@ -26,19 +31,47 @@ public class AddAirlinesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		int passengerid = (int) session.getAttribute("PASSANGERID");
 		Airlines airlines = new Airlines();
+		ArrayList<Airlines> airlinesList = new ArrayList<>();
 		airlines.setAirlinesName(request.getParameter("airlines"));
-		System.out.println(airlines.getAirlinesName());
+		airlines.setCreatedBy(passengerid);
+		Timestamp datetime = Timestamp.valueOf(LocalDateTime.now());
+		airlines.setCreatedTime(datetime);
+		airlines.setUpdatedBy(passengerid);
+		airlines.setUpdatedTime(datetime);
 		AirlinesDAO airlinesDAO = new AirlinesDAO();
+		AirlinesValidator airlinesValidator = new AirlinesValidator();
 		try {
-			airlinesDAO.addAirline(airlines);
-			ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
-			request.setAttribute("AIRLINES", airlinesList);
-			RequestDispatcher rd = request.getRequestDispatcher("airlines.jsp");
-			rd.forward(request, response);
+			if (!airlinesValidator.validString(airlines.getAirlinesName())) {
+				System.out.println("inside if");
+				String error = "Please enter a valid Airlines Name";
+				String page = "airlines.jsp";
+				airlinesList = airlinesDAO.findAll();
+				request.setAttribute("AIRLINES", airlinesList);
+				RequestDispatcherForward
+						.forward(error, page, request, response);
+			} else if (airlinesValidator.airlinesAlreadyExists(airlines
+					.getAirlinesName())) {
+				System.out.println("insdie");
+				String error = "Airlines Name Already Available";
+				String page = "airlines.jsp";
+				airlinesList = airlinesDAO.findAll();
+				request.setAttribute("AIRLINES", airlinesList);
+				RequestDispatcherForward
+						.forward(error, page, request, response);
+			} else {
+				airlinesDAO.addAirline(airlines);
+				airlinesList = airlinesDAO.findAll();
+				request.setAttribute("AIRLINES", airlinesList);
+				RequestDispatcher rd = request
+						.getRequestDispatcher("airlines.jsp");
+				rd.forward(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+
 		}
 	}
-
 }

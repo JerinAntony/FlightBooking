@@ -68,7 +68,7 @@ input[type=number] {
 	<div align="left" style="color: white">Welcome ${NAME}</div>
 
 	<div align="center">
-		<table>
+		<%-- <table>
 			<tr>
 				<td>
 					<div align="center" style="width: 900px">
@@ -157,18 +157,23 @@ input[type=number] {
 					</div>
 				</td>
 			</tr>
-		</table>
+		</table> --%>
 		<br /> <br />
 		<table>
 			<tr>
 				<td><form method="post" action="AirlinesServlet">
-						<button type="submit" name="addflightdestination" value="addflightdestination"
-							class="button button1">Add Destination</button>
+						<button type="submit" name="addflightdestination"
+							value="addflightdestination" class="button button1">Add
+							Destination</button>
 					</form></td>
 				<td>
 				<td><form method="post" action="AirlinesServlet">
 						<button type="submit" name="addairlines" value="airlines"
 							class="button button1">Add Airlines</button>
+					</form></td>
+				<td><form method="post" action="AirlinesServlet">
+						<button type="submit" name="addairlinesflight" value="addairlinesflight"
+							class="button button1">Add Airlines Flights</button>
 					</form></td>
 				<td>
 					<form method="post" action="CheckFlightAvailablityServlet">

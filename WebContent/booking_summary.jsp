@@ -45,6 +45,7 @@ form {
 }
 </style>
 <body>
+	<div align="left" style="color: white">Welcome ${NAME}</div>
 	<div align="center">
 		<form method="post" action="TicketCancellationServlet">
 			<h3 style="color: white">Booking Summary</h3>

@@ -104,6 +104,7 @@ input[type=date] {
 }
 </style>
 <body style="color: white; font-family: Times New Roman;">
+
 	<div class="display">
 		<img src="registerpng.png" alt="hh" width="200px" height="200px">
 

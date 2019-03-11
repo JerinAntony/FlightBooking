@@ -2,20 +2,16 @@ package com.chainsys.flightbooking.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.chainsys.flightbooking.dao.FlightDestinationDAO;
 import com.chainsys.flightbooking.model.FlightDestinations;
-import com.chainsys.flightbooking.model.Passangers;
 import com.chainsys.flightbooking.util.RequestDispatcherForward;
 
 /**

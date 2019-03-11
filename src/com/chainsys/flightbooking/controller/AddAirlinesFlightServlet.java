@@ -44,7 +44,7 @@ public class AddAirlinesFlightServlet extends HttpServlet {
 		airlines.setFlightClass(request.getParameter("flightclass"));
 		AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
 		try {
-			airlinesDAO.addAirlines(airlines);
+			airlinesDAO.addAirlinesFlight(airlines);
 			ArrayList<AirlinesFlight> airlinesList = new ArrayList<>();
 			airlinesList.addAll(airlinesDAO.findAllAirlines());
 			request.setAttribute("AIRLINES", airlinesList);

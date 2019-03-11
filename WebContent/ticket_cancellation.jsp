@@ -55,6 +55,7 @@ input[type=text] {
 </style>
 </head>
 <body>
+	<div align="left" style="color: white">Welcome ${NAME}</div>
 	<div align="center">
 		<form method="post" action="AirlinesServlet">
 			<table>
@@ -120,10 +121,11 @@ input[type=text] {
 				<tbody>
 					<c:forEach var="booking" items="${BOOKING}">
 						<input type="hidden" name="ticketid" value="${booking.id}">
-							<input type="hidden" name="adultseats" value="${booking.adultSeats}">
+						<input type="hidden" name="adultseats"
+							value="${booking.adultSeats}">
 						<input type="hidden" name="childseats"
 							value="${booking.childSeats}">
-							<input type="hidden" name="airlinesid"
+						<input type="hidden" name="airlinesid"
 							value="${booking.airlinesId.id}">
 						<tr>
 							<td

@@ -29,7 +29,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("inside");
 		Passangers passanger = new Passangers();
 		passanger.setEmail(request.getParameter("email"));
 		passanger.setPassword(request.getParameter("password"));
@@ -52,8 +51,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("PASSANGER", pass);
 				session.setAttribute("PASSANGERID", pass.getId());
 				AirlinesDAO airlinesDAO = new AirlinesDAO();
-				ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
-				request.setAttribute("AIRLINE", airlinesList);
+				
 				RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 				rd.forward(request, response);
 

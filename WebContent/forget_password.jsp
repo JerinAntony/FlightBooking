@@ -90,7 +90,7 @@ input[type=date]:focus {
 }
 </style>
 <body>
-
+	<div align="left" style="color: white">Welcome ${NAME}</div>
 	<div align="center">
 
 		<form method="post" action="ForgetPasswordServlet">

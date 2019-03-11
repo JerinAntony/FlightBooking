@@ -38,6 +38,7 @@ public class AirlinesServlet extends HttpServlet {
 		String ticketCancellation = "";
 		String pnrno = "";
 		String flightdestination = "";
+		String airlinesflight = "";
 		if (request.getParameter("addairlines") != null) {
 			buttonvalue = request.getParameter("addairlines");
 		}
@@ -51,6 +52,9 @@ public class AirlinesServlet extends HttpServlet {
 		}
 		if (request.getParameter("addflightdestination") != null) {
 			flightdestination = request.getParameter("addflightdestination");
+		}
+		if (request.getParameter("addairlinesflight") != null) {
+			airlinesflight = request.getParameter("addairlinesflight");
 		}
 		try {
 			if (buttonvalue.equals("airlines")) {
@@ -79,7 +83,15 @@ public class AirlinesServlet extends HttpServlet {
 				request.setAttribute("FLIFHTDEST", flightDestinationList);
 				String page = "flight_destination.jsp";
 				RequestDispatcherForward.forward(null, page, request, response);
-			} else {
+			} else if (airlinesflight.equals("addairlinesflight")) {
+				ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
+				request.setAttribute("AIRLINE", airlinesList);
+				RequestDispatcher rd = request
+						.getRequestDispatcher("airlines_flight.jsp");
+				rd.forward(request, response);
+			}
+
+			else {
 				RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 				rd.forward(request, response);
 			}

@@ -73,6 +73,7 @@ input[type=submit]:hover {
 }
 </style>
 <body>
+<div align="left" style="color: white">Welcome ${NAME}</div>
 	<div align="center">
 
 		<form method="post" action="AddBookingFlightServlet">

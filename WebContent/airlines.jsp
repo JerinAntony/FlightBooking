@@ -94,30 +94,18 @@ input[type=submit]:hover {
 
 
 								<tr>
-									<td></td>
+									<td colspan="2" style="color: red">${DISPLAY}</td>
 									<td></td>
 								</tr>
 								<tr>
-									<td></td>
+									<td><a href="home.jsp" style="color: white">Back</a></td>
+
 									<td align="center"><button style="width: 100px;"
 											type="submit" class="button button1">Save</button></td>
 								</tr>
 							</table>
 
 						</form>
-						<table align="left">
-							<tr>
-								<td>
-									<form method="post" action="ViewAirlinesInDropdownServlet">
-										<button type="submit" class="button button1">Back</button>
-									</form>
-								</td>
-							</tr>
-						</table>
-
-
-
-
 					</div>
 				</td>
 				<td><form method="post">
