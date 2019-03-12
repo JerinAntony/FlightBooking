@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.AirlinesFlight;
@@ -15,6 +16,13 @@ import com.chainsys.flightbooking.util.ConnectionUtil;
 
 public class BookingFlightDAO {
 
+	/**
+	 * Method to add Booking Flight Details
+	 * 
+	 * @param bookairlines
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean addBookingFlight(BookingAirlines bookairlines)
 			throws SQLException {
 		boolean isSucess = false;
@@ -29,7 +37,6 @@ public class BookingFlightDAO {
 			preparedStatement.setLong(3, bookairlines.getChildSeats());
 			preparedStatement.setInt(4, bookairlines.getInfant());
 			preparedStatement.setString(5, bookairlines.getCoPassangersname());
-
 			// Calculating Filght Price Amount
 			AirlinesFlightDAO airlinesDAO = new AirlinesFlightDAO();
 			AirlinesFlight airlines = airlinesDAO.findById(bookairlines
@@ -42,8 +49,6 @@ public class BookingFlightDAO {
 				int totalamount = adultamount + childamount;
 				bookairlines.setPrice(totalamount);
 			}
-			// Update Booking seats in Airlines
-			airlinesDAO.updateAirlinesSeats(bookairlines);
 			preparedStatement.setDouble(6, bookairlines.getPrice());
 			preparedStatement.setDate(7,
 					Date.valueOf(bookairlines.getBookingDate()));
@@ -57,6 +62,8 @@ public class BookingFlightDAO {
 			int row = preparedStatement.executeUpdate();
 			if (row > 0) {
 				isSucess = true;
+				// Update Booking seats in Airlines
+				airlinesDAO.updateAirlinesSeats(bookairlines);
 			} else {
 				isSucess = false;
 			}
@@ -68,10 +75,15 @@ public class BookingFlightDAO {
 		return isSucess;
 	}
 
-	public ArrayList<BookingAirlines> findBookingDetails() {
+	/**
+	 * Method to get all booking Details
+	 * 
+	 * @return
+	 */
+	public List<BookingAirlines> findBookingDetails() {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ArrayList<BookingAirlines> bookinghistoryLists = new ArrayList<>();
+		List<BookingAirlines> bookinghistoryLists = new ArrayList<>();
 		String Url = "select a.airlines_name as airlinesname,f.flight_no as flightno,f.flight_class as flightclass,ba.infant as infant,ba.co_passangersname as copassangers,ba.adult_seats as adultseats,ba.child_seats as childseats,ba.price as price,ba.booking_date as bookingdate,ba.cancel_status as cancelstatus,ba.pnr_no as pnrno,p.name as passangername from BOOKINGAIRLINES ba "
 				+ "join AIRLINES_FLIGHT f on ba.airlines_id=f.id "
 				+ "join airlines a on f.flight_name=a.id "
@@ -120,7 +132,13 @@ public class BookingFlightDAO {
 		return bookinghistoryLists;
 	}
 
-	public ArrayList<BookingAirlines> findBookingDetailsByPNRno(String pnrno) {
+	/**
+	 * Method to Find ticket by pnr no and cancel ticket
+	 * 
+	 * @param pnrno
+	 * @return
+	 */
+	public List<BookingAirlines> findBookingDetailsByPNRno(String pnrno) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ArrayList<BookingAirlines> bookinghistoryLists = new ArrayList<>();
@@ -174,19 +192,34 @@ public class BookingFlightDAO {
 		return bookinghistoryLists;
 	}
 
-	public boolean cancelTicket(BookingAirlines booking) throws SQLException {
+	/**
+	 * Method to Update Cancel ticket Status
+	 * 
+	 * @param booking
+	 * @return
+	 */
+	/**
+	 * @param booking
+	 * @return
+	 */
+	public boolean cancelTicket(BookingAirlines booking) {
 		boolean isStatus = false;
-		Connection connection = ConnectionUtil.getConnection();
-		String sql = "UPDATE bookingairlines SET cancel_status=? where id=?";
-		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		preparedStatement.setInt(1, booking.getCancelStatus());
-		preparedStatement.setInt(2, booking.getId());
+		try {
+			Connection connection = ConnectionUtil.getConnection();
+			String sql = "UPDATE bookingairlines SET cancel_status=? where id=?";
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(sql);
+			preparedStatement.setInt(1, booking.getCancelStatus());
+			preparedStatement.setInt(2, booking.getId());
 
-		int row = preparedStatement.executeUpdate();
-		if (row != 0) {
-			isStatus = true;
-		} else {
-			isStatus = false;
+			int row = preparedStatement.executeUpdate();
+			if (row != 0) {
+				isStatus = true;
+			} else {
+				isStatus = false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return isStatus;
 	}

@@ -11,6 +11,11 @@ import com.chainsys.flightbooking.util.ConnectionUtil;
 
 public class FlightDestinationDAO {
 
+	/**Method to Add Flight Destinations
+	 * @param flightdestination
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean addFlightDestination(FlightDestinations flightdestination)
 			throws Exception {
 		Connection connection = null;
@@ -40,6 +45,10 @@ public class FlightDestinationDAO {
 		return isStatus;
 	}
 	
+	/**Method to View all Destinations in Table
+	 * @return
+	 * @throws SQLException
+	 */
 	public List<FlightDestinations> findAll() throws SQLException {
 		List<FlightDestinations> airlinesLists = new ArrayList<>();
 		Connection connection = ConnectionUtil.getConnection();

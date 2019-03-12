@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.AirlinesFlight;
@@ -52,8 +53,8 @@ public class AirlinesFlightDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public ArrayList<AirlinesFlight> findAll() throws SQLException {
-		ArrayList<AirlinesFlight> airlinesLists = new ArrayList<>();
+	public List<AirlinesFlight> findAll() throws SQLException {
+		List<AirlinesFlight> airlinesLists = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;
@@ -97,8 +98,8 @@ public class AirlinesFlightDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public ArrayList<AirlinesFlight> findAllAirlines() throws SQLException {
-		ArrayList<AirlinesFlight> airlinesLists = new ArrayList<>();
+	public List<AirlinesFlight> findAllAirlines() throws SQLException {
+		List<AirlinesFlight> airlinesLists = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;

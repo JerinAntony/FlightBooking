@@ -74,7 +74,9 @@ public class PassangersDAO {
 		return passanger;
 	}
 
-	/**Method to check 
+	/**
+	 * Method to check
+	 * 
 	 * @param passanger
 	 * @return
 	 * @throws SQLException
@@ -196,6 +198,10 @@ public class PassangersDAO {
 		return forgetpassanger;
 	}
 
+	/**Method to update change password
+	 * @param passanger
+	 * @throws SQLException
+	 */
 	public void changePassword(Passangers passanger) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -211,6 +217,30 @@ public class PassangersDAO {
 		} finally {
 			ConnectionUtil.close(connection, preparedStatement, null);
 		}
+	}
+
+	public boolean checkUsername(String username) throws SQLException {
+		Connection connection = null;
+		ResultSet resultset = null;
+		boolean isAvailable = false;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			String sql = "SELECT username FROM passengers where username=?";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			resultset = preparedStatement.executeQuery();
+			if (resultset.next()) {
+				isAvailable = true;
+			} else {
+				isAvailable = false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.close(connection, preparedStatement, resultset);
+		}
+		return isAvailable;
 	}
 
 }

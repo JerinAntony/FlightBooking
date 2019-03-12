@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.util.ConnectionUtil;
 
@@ -14,11 +16,12 @@ public class AirlinesDAO {
 	 * Method to add new airlines
 	 * 
 	 * @param airlines
-	 * @throws SQLException
+	 * @throws Exception 
 	 */
-	public void addAirline(Airlines airlines) throws SQLException {
+	public boolean addAirline(Airlines airlines) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedstatement = null;
+		boolean isSucess=false;
 		try {
 			connection = ConnectionUtil.getConnection();
 			String url = "INSERT INTO airlines(id,airlines_name,created_by,created_time,updated_by,updated_time) VALUES(seq_airlinesid.NEXTVAL,?,?,?,?,?)";
@@ -28,12 +31,19 @@ public class AirlinesDAO {
 			preparedstatement.setTimestamp(3, airlines.getCreatedTime());
 			preparedstatement.setInt(4, airlines.getUpdatedBy());
 			preparedstatement.setTimestamp(5, airlines.getUpdatedTime());
-			preparedstatement.executeUpdate();
+			int row =preparedstatement.executeUpdate();
+			if(row>0){
+				isSucess=true;
+			}else{
+				isSucess=false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new Exception("Unable to insert");
 		} finally {
 			ConnectionUtil.close(connection, preparedstatement, null);
 		}
+		return isSucess;
 	}
 
 	/**
@@ -42,8 +52,8 @@ public class AirlinesDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	public ArrayList<Airlines> findAll() throws SQLException {
-		ArrayList<Airlines> airlinesLists = new ArrayList<>();
+	public List<Airlines> findAll() throws SQLException {
+		List<Airlines> airlinesLists = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultset = null;

@@ -39,7 +39,7 @@ public class AirlinesServlet extends HttpServlet {
 		String pnrno = "";
 		String flightdestination = "";
 		String airlinesflight = "";
-		String changepasspage="";
+		String changepasspage = "";
 		if (request.getParameter("addairlines") != null) {
 			buttonvalue = request.getParameter("addairlines");
 		}
@@ -56,49 +56,48 @@ public class AirlinesServlet extends HttpServlet {
 		}
 		if (request.getParameter("addairlinesflight") != null) {
 			airlinesflight = request.getParameter("addairlinesflight");
-		}if(request.getParameter("changepasssword")!=null){
-			changepasspage=request.getParameter("changepasssword");
+		}
+		if (request.getParameter("changepasssword") != null) {
+			changepasspage = request.getParameter("changepasssword");
 		}
 		try {
-			if (buttonvalue.equals("airlines")) {
-				ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
+			if ("airlines".equals(buttonvalue)) {
+				List<Airlines> airlinesList = airlinesDAO.findAll();
 				request.setAttribute("AIRLINES", airlinesList);
 				RequestDispatcher rd = request
 						.getRequestDispatcher("airlines.jsp");
 				rd.forward(request, response);
-			} else if (cancenbutton.equals("ticketcancel")) {
+			} else if ("ticketcancel".equals(cancenbutton)) {
 				RequestDispatcher rd = request
 						.getRequestDispatcher("ticket_cancellation.jsp");
 				rd.forward(request, response);
-			} else if (ticketCancellation.equals("ticketcancelbypnr")) {
+			} else if ("ticketcancelbypnr".equals(ticketCancellation)) {
 				BookingFlightDAO bookingflightDAO = new BookingFlightDAO();
 
-				ArrayList<BookingAirlines> bookingsummary = bookingflightDAO
+				List<BookingAirlines> bookingsummary = bookingflightDAO
 						.findBookingDetailsByPNRno(pnrno);
 				request.setAttribute("BOOKING", bookingsummary);
 				RequestDispatcher rd = request
 						.getRequestDispatcher("ticket_cancellation.jsp");
 				rd.forward(request, response);
-			} else if (flightdestination.equals("addflightdestination")) {
+			} else if ("addflightdestination".equals(flightdestination)) {
 				FlightDestinationDAO flightDestinationDAO = new FlightDestinationDAO();
 				List<FlightDestinations> flightDestinationList = flightDestinationDAO
 						.findAll();
 				request.setAttribute("FLIFHTDEST", flightDestinationList);
 				String page = "flight_destination.jsp";
 				RequestDispatcherForward.forward(null, page, request, response);
-			} else if (airlinesflight.equals("addairlinesflight")) {
-				ArrayList<Airlines> airlinesList = airlinesDAO.findAll();
+			} else if ("addairlinesflight".equals(airlinesflight)) {
+				List<Airlines> airlinesList = airlinesDAO.findAll();
 				request.setAttribute("AIRLINE", airlinesList);
 				RequestDispatcher rd = request
 						.getRequestDispatcher("airlines_flight.jsp");
 				rd.forward(request, response);
-			}else if(changepasspage.equals("changepasssword")){
+			} else if ("changepasssword".equals(changepasspage)) {
 				RequestDispatcher rd = request
 						.getRequestDispatcher("change_password.jsp");
 				rd.forward(request, response);
-			}
-
-			else {
+			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
 				rd.forward(request, response);
 			}

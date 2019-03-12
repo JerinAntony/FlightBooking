@@ -95,7 +95,7 @@ input[type=submit]:hover {
 
 								<tr>
 									<td colspan="2" style="color: red">${DISPLAY}</td>
-									<td></td>
+									<td colspan="2" style="color: red">${SUCESS}</td>
 								</tr>
 								<tr>
 									<td><a href="home.jsp" style="color: white">Back</a></td>

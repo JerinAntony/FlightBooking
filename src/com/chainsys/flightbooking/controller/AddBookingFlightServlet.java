@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.chainsys.flightbooking.dao.AirlinesDAO;
 import com.chainsys.flightbooking.dao.AirlinesFlightDAO;
 import com.chainsys.flightbooking.dao.BookingFlightDAO;
@@ -26,7 +24,6 @@ import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.model.BookingAirlines;
 import com.chainsys.flightbooking.model.Passangers;
 import com.chainsys.flightbooking.util.ConnectionUtil;
-import com.chainsys.flightbooking.validator.FlightBookingValidator;
 
 /**
  * Servlet implementation class AddBookingFlightServlet
@@ -70,10 +67,8 @@ public class AddBookingFlightServlet extends HttpServlet {
 		// Generate PNR NO for Passangers
 		StringBuilder sb = new StringBuilder();
 		LocalDate day = LocalDate.now();
-		System.out.println("day" + day.getDayOfMonth());
 		sb.append("PNR" + "" + day.getDayOfMonth());
-		sb.append(passanger.getName().substring(1,4).toUpperCase());
-		System.out.println("pnr" + sb.toString());
+		sb.append(passanger.getName().substring(1, 4).toUpperCase());
 		booking.setPnrNo(sb.toString());
 		Timestamp datetime = Timestamp.valueOf(LocalDateTime.now());
 		booking.setCreatedBy(passanger.getId());
@@ -82,11 +77,7 @@ public class AddBookingFlightServlet extends HttpServlet {
 		booking.setUpdatedTime(datetime);
 		BookingFlightDAO bookingDAO = new BookingFlightDAO();
 		try {
-			FlightBookingValidator bookingValidator = new FlightBookingValidator();
-			bookingValidator.checkFlightBooking(booking);
-			// bookingDAO.findByIdClass(airlineid, flightclass);
 			bookingDAO.addBookingFlight(booking);
-
 			ArrayList<BookingAirlines> bookingList = new ArrayList<>();
 			bookingList.addAll(bookingDAO.findBookingDetails());
 			request.setAttribute("BOOKING", bookingList);

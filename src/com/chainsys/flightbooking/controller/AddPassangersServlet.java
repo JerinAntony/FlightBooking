@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.chainsys.flightbooking.dao.PassangersDAO;
 import com.chainsys.flightbooking.model.Passangers;
 import com.chainsys.flightbooking.util.RequestDispatcherForward;
+import com.chainsys.flightbooking.validator.AirlinesValidator;
 
 /**
  * Servlet implementation class AddPassangersServlet
@@ -43,17 +44,28 @@ public class AddPassangersServlet extends HttpServlet {
 		Timestamp createddatetime = Timestamp.valueOf(datetime);
 		passanger.setCreated_date(createddatetime);
 		PassangersDAO passangersDAO = new PassangersDAO();
+		AirlinesValidator airlinesValidator = new AirlinesValidator();
 		try {
-			if (!passangersDAO.checkLoginEmail(passanger)) {
+			if (passangersDAO.checkLoginEmail(passanger)) {
+				String msg = "Email Already Exists";
+				String page = "passanger_registration.jsp";
+				RequestDispatcherForward.forward(msg, page, request, response);
+			} else if (airlinesValidator.dobValidate(fatherdob)) {
+				String msg = "Please Enter Valid DOB";
+				String page = "passanger_registration.jsp";
+				RequestDispatcherForward.forward(msg, page, request, response);
+			} else if (passangersDAO.checkUsername(passanger.getUsername())) {
+				String msg = "Username Already Exists";
+				String page = "passanger_registration.jsp";
+				RequestDispatcherForward.forward(msg, page, request, response);
+			}
+
+			else {
 				passangersDAO.addPassangers(passanger);
 				RequestDispatcher rd = request
 						.getRequestDispatcher("login.jsp");
 				rd.forward(request, response);
-			} else {
-				String email = "Email Already Exists";
-				String page = "passanger_registration.jsp";
-				RequestDispatcherForward
-						.forward(email, page, request, response);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

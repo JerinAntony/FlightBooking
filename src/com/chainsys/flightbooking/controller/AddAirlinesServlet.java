@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class AddAirlinesServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		int passengerid = (int) session.getAttribute("PASSANGERID");
 		Airlines airlines = new Airlines();
-		ArrayList<Airlines> airlinesList = new ArrayList<>();
+		List<Airlines> airlinesList = new ArrayList<>();
 		airlines.setAirlinesName(request.getParameter("airlines"));
 		airlines.setCreatedBy(passengerid);
 		Timestamp datetime = Timestamp.valueOf(LocalDateTime.now());
@@ -62,7 +63,14 @@ public class AddAirlinesServlet extends HttpServlet {
 				RequestDispatcherForward
 						.forward(error, page, request, response);
 			} else {
-				airlinesDAO.addAirline(airlines);
+				boolean sucess=airlinesDAO.addAirline(airlines);
+				if(sucess){
+					String msg="Airlines Added Sucessfully";
+					request.setAttribute("SUCESS", msg);
+				}else{
+					String msg="Insertion Failed";
+					request.setAttribute("SUCESS", msg);
+				}
 				airlinesList = airlinesDAO.findAll();
 				request.setAttribute("AIRLINES", airlinesList);
 				RequestDispatcher rd = request

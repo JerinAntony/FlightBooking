@@ -160,7 +160,7 @@ input[type=date] {
 				</tr>
 				<tr>
 
-					<td colspan="2"><a href="home.jsp" style="color: white">Back</a>
+					<td colspan="2"><a href="login.jsp" style="color: white">Back</a>
 						<button type="submit" style="width: 200px" class="button button1">Sign
 							Up</button></td>
 					<td></td>
