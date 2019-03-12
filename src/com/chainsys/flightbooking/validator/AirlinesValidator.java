@@ -48,6 +48,12 @@ public class AirlinesValidator {
 		return isValid;
 	}
 
+	/**
+	 * Method to validate date of birth
+	 * 
+	 * @param fatherdob
+	 * @return
+	 */
 	public boolean dobValidate(LocalDate fatherdob) {
 		boolean isdate = false;
 		if (fatherdob.isAfter(LocalDate.now())
@@ -57,5 +63,21 @@ public class AirlinesValidator {
 			isdate = false;
 		}
 		return isdate;
+	}
+
+	/**
+	 * Method to check valid phone number
+	 * 
+	 * @param number
+	 * @return
+	 */
+	public boolean phoneNumber(long number) {
+		boolean isNumber = false;
+		if (number == 10 && number > 0) {
+			isNumber = true;
+		} else {
+			isNumber = false;
+		}
+		return isNumber;
 	}
 }

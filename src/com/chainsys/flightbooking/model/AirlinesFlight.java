@@ -9,8 +9,8 @@ public class AirlinesFlight {
 	private String flightNo;
 	private int adultSeats;
 	private int childSeats;
-	private int adultPrice;
-	private int childPrice;
+	private float adultPrice;
+	private float childPrice;
 	private String flightClass;
 	private String status;
 	private int createdBy;
@@ -58,19 +58,19 @@ public class AirlinesFlight {
 		this.childSeats = childSeats;
 	}
 
-	public int getAdultPrice() {
+	public float getAdultPrice() {
 		return adultPrice;
 	}
 
-	public void setAdultPrice(int adultPrice) {
+	public void setAdultPrice(float adultPrice) {
 		this.adultPrice = adultPrice;
 	}
 
-	public int getChildPrice() {
+	public float getChildPrice() {
 		return childPrice;
 	}
 
-	public void setChildPrice(int childPrice) {
+	public void setChildPrice(float childPrice) {
 		this.childPrice = childPrice;
 	}
 
@@ -132,5 +132,7 @@ public class AirlinesFlight {
 				+ ", createdTime=" + createdTime + ", updatedBy=" + updatedBy
 				+ ", updatedTime=" + updatedTime + "]";
 	}
+
+	
 
 }

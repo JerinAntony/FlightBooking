@@ -11,7 +11,7 @@ public class BookingAirlines {
 	private int childSeats;
 	private int infant;
 	private String coPassangersname;
-	private int price;
+	private float price;
 	private LocalDate bookingDate;
 	private int cancelStatus;
 	private String pnrNo;
@@ -69,11 +69,11 @@ public class BookingAirlines {
 		this.coPassangersname = coPassangersname;
 	}
 
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 
@@ -153,4 +153,5 @@ public class BookingAirlines {
 				+ updatedBy + ", updatedTime=" + updatedTime + "]";
 	}
 
+	
 }

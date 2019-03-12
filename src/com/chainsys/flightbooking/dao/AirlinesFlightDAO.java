@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chainsys.flightbooking.exceptions.InsertionFailed;
 import com.chainsys.flightbooking.model.Airlines;
 import com.chainsys.flightbooking.model.AirlinesFlight;
 import com.chainsys.flightbooking.model.BookingAirlines;
@@ -18,9 +19,9 @@ public class AirlinesFlightDAO {
 	 * Method to add airlines flight
 	 * 
 	 * @param airlines
-	 * @throws SQLException
+	 * @throws Exception 
 	 */
-	public void addAirlinesFlight(AirlinesFlight airlinesflight) throws SQLException {
+	public void addAirlinesFlight(AirlinesFlight airlinesflight) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedstatement = null;
 		try {
@@ -40,8 +41,10 @@ public class AirlinesFlightDAO {
 			preparedstatement.setInt(11, airlinesflight.getUpdatedBy());
 			preparedstatement.setTimestamp(12, airlinesflight.getUpdatedTime());
 			preparedstatement.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new InsertionFailed("Unable to Add Airlines Details");
 		} finally {
 			ConnectionUtil.close(connection, preparedstatement, null);
 		}

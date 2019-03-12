@@ -19,7 +19,7 @@ start with 1
 increment by 1;
 
 create table airlines_flight(id number(10) CONSTRAINT pk_airlines_id primary key,flight_name varchar2(30),flight_no varchar2(10),
-adult_seats int,child_seats int,adult_price int,child_price int,status char,flight_class varchar(30));
+adult_seats int,child_seats int,adult_price float,child_price float,status char,flight_class varchar(30));
 
 alter table AIRLINES_FLIGHT ADD CONSTRAINT fk_flightname foreign key (flight_name) references airlines(id);
 
@@ -30,7 +30,7 @@ increment by 1;
 
 create table bookingairlines(id number(10) primary key,airlines_id int CONSTRAINT fk_booking_airlines_id references airlines(id),
 adult_seats int,child_seats int,co_passangersname varchar2(40),
-price int,booking_date date,
+price float,booking_date date,
 passengers_id int CONSTRAINT fk_booking_passengers_id references passengers(id));
 
 ALTER TABLE bookingairlines ADD (created_by int,created_time timestamp,updated_by int,updated_time timestamp);

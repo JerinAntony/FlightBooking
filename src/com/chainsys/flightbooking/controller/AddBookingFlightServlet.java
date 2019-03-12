@@ -85,6 +85,10 @@ public class AddBookingFlightServlet extends HttpServlet {
 					.getRequestDispatcher("booking_summary.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
+			request.setAttribute("ERRORMSG", e.getMessage());
+			RequestDispatcher rd = request
+					.getRequestDispatcher("booking_airlines.jsp");
+			rd.forward(request, response);
 			e.printStackTrace();
 		}
 	}

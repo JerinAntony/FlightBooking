@@ -30,7 +30,6 @@ public class AddPassangersServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
 		Passangers passanger = new Passangers();
 		passanger.setName(request.getParameter("name"));
 		passanger.setEmail(request.getParameter("email"));
@@ -50,6 +49,11 @@ public class AddPassangersServlet extends HttpServlet {
 				String msg = "Email Already Exists";
 				String page = "passanger_registration.jsp";
 				RequestDispatcherForward.forward(msg, page, request, response);
+			} else if (airlinesValidator
+					.phoneNumber(passanger.getPhonenumber())) {
+				String msg = "Invalid Phone Number";
+				String page = "passanger_registration.jsp";
+				RequestDispatcherForward.forward(msg, page, request, response);
 			} else if (airlinesValidator.dobValidate(fatherdob)) {
 				String msg = "Please Enter Valid DOB";
 				String page = "passanger_registration.jsp";
@@ -58,19 +62,14 @@ public class AddPassangersServlet extends HttpServlet {
 				String msg = "Username Already Exists";
 				String page = "passanger_registration.jsp";
 				RequestDispatcherForward.forward(msg, page, request, response);
-			}
-
-			else {
+			} else {
 				passangersDAO.addPassangers(passanger);
 				RequestDispatcher rd = request
 						.getRequestDispatcher("login.jsp");
 				rd.forward(request, response);
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }

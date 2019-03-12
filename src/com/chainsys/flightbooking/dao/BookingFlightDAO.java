@@ -42,11 +42,11 @@ public class BookingFlightDAO {
 			AirlinesFlight airlines = airlinesDAO.findById(bookairlines
 					.getAirlinesId().getId());
 			if (airlines != null) {
-				int adultamount = bookairlines.getAdultSeats()
+				float adultamount = bookairlines.getAdultSeats()
 						* airlines.getAdultPrice();
-				int childamount = bookairlines.getChildSeats()
+				float childamount = bookairlines.getChildSeats()
 						* airlines.getChildPrice();
-				int totalamount = adultamount + childamount;
+				float totalamount = adultamount + childamount;
 				bookairlines.setPrice(totalamount);
 			}
 			preparedStatement.setDouble(6, bookairlines.getPrice());

@@ -62,6 +62,11 @@ public class AddAirlinesFlightServlet extends HttpServlet {
 					.getRequestDispatcher("view_airlines.jsp");
 			rd.forward(request, response);
 		} catch (Exception e) {
+			String msg="Unable to Add Flights";
+			request.setAttribute("ERROR", msg);
+			RequestDispatcher rd = request
+					.getRequestDispatcher("airlines_flight.jsp");
+			rd.forward(request, response);
 			e.printStackTrace();
 		}
 

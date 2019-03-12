@@ -136,7 +136,7 @@ input[type=number] {
 								<td></td>
 							</tr>
 							<tr>
-								<td></td>
+								<td>${ERROR}</td>
 								<td><a href="home.jsp" style="color: white">Back</a></td>
 								<td>
 									<button style="width: 100px;" type="submit"

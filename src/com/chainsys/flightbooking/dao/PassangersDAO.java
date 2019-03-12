@@ -107,6 +107,13 @@ public class PassangersDAO {
 		return isValue;
 	}
 
+	/**
+	 * Method to check login email already available or not
+	 * 
+	 * @param passanger
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean checkLoginEmail(Passangers passanger) throws SQLException {
 		boolean isValue = false;
 		Connection connection = null;
@@ -132,6 +139,13 @@ public class PassangersDAO {
 		return isValue;
 	}
 
+	/**
+	 * Method to get passenger from login credencials (email,password)
+	 * 
+	 * @param passanger
+	 * @return
+	 * @throws SQLException
+	 */
 	public Passangers getPassanger(Passangers passanger) throws SQLException {
 		Passangers passangerobj = null;
 		Connection connection = null;
@@ -162,6 +176,13 @@ public class PassangersDAO {
 
 	}
 
+	/**
+	 * Method to check details for forget password to display password to user
+	 * 
+	 * @param passanger
+	 * @return
+	 * @throws SQLException
+	 */
 	public Passangers checkForgetPassword(Passangers passanger)
 			throws SQLException {
 		Passangers forgetpassanger = null;
@@ -198,7 +219,9 @@ public class PassangersDAO {
 		return forgetpassanger;
 	}
 
-	/**Method to update change password
+	/**
+	 * Method to update change password
+	 * 
 	 * @param passanger
 	 * @throws SQLException
 	 */
@@ -219,6 +242,13 @@ public class PassangersDAO {
 		}
 	}
 
+	/**
+	 * Method to check Username Already exists in database
+	 * 
+	 * @param username
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean checkUsername(String username) throws SQLException {
 		Connection connection = null;
 		ResultSet resultset = null;

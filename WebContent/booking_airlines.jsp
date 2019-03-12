@@ -73,7 +73,7 @@ input[type=submit]:hover {
 }
 </style>
 <body>
-<div align="left" style="color: white">Welcome ${NAME}</div>
+	<div align="left" style="color: white">Welcome ${NAME}</div>
 	<div align="center">
 
 		<form method="post" action="AddBookingFlightServlet">
@@ -139,7 +139,7 @@ input[type=submit]:hover {
 					<td></td>
 				</tr>
 				<tr>
-					<td></td>
+					<td>${ERRORMSG}</td>
 				</tr>
 				<tr>
 					<td><a href="home.jsp" style="color: white">Back</a></td>
